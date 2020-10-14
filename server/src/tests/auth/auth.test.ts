@@ -5,14 +5,7 @@ import mongoose from "../../config/db";
 import { ServiceResponse, UserInterface } from "../../interfaces/user.interfaces";
 import { registerNewUser } from "../../service/auth.service";
 import buildServiceResponse from "../../utils/serviceResponse";
-
-const mockUser = {
-    displayName: "displayName",
-    firstName: "firstName",
-    lastName: "lastName",
-    email: `tezdsdfesdgf3kt@test.test`,
-    password: "password",
-};
+import { mockUser } from "../resources/user";
 
 beforeAll(async (done) => {
     done();
