@@ -3,9 +3,11 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { Server } from "http";
+import { connectDb } from "./config/db";
 
 dotenv.config();
 const app = express();
+connectDb();
 
 app.use(json());
 app.use(
