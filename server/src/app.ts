@@ -4,9 +4,10 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import { Server } from "http";
 import { connectDb } from "./config/db";
+import routes from "./routes";
 
 dotenv.config();
-const app = express();
+export const app = express();
 connectDb();
 
 app.use(json());
@@ -22,9 +23,11 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-const PORT = process.env.PORT;
+const PORT = process.env.NODE_ENV === "development" ? process.env.PORT : process.env.TEST_PORT;
 
-const server: Server = app.listen(PORT, () =>
+app.use("/", routes);
+
+export const server: Server = app.listen(PORT, () =>
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`),
 );
 
