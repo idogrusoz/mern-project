@@ -5,9 +5,9 @@ import { UserDocument } from "../models/user/user.types";
 import buildServiceResponse from "../utils/serviceResponse";
 
 export const registerNewUser = async (user: UserInterface): Promise<ServiceResponse<UserInterface>> => {
-    const getExistnigUser = await findUserByEmail(user.email);
+    const getExistingUser = await findUserByEmail(user.email);
     try {
-        if (getExistnigUser === null) {
+        if (getExistingUser === null) {
             const newUser = await createUser(user);
             console.log("New user created");
             if (newUser) {
@@ -29,10 +29,15 @@ const findUserByEmail = async (email: string): Promise<UserDocument | null> => {
     return user;
 };
 
-const createUser = async (data: UserInterface): Promise<UserDocument | string> => {
-    const salt = bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
-    const hash = await bcrypt.hash(data.password, salt);
+const createUser = async (data: UserInterface): Promise<UserDocument> => {
+    const hash = await hashedPassword(data.password);
     data.password = hash;
     const newUser = await UserModel.create(data);
     return newUser;
+};
+
+export const hashedPassword = async (password: string): Promise<string> => {
+    const salt = bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
 };
