@@ -9,7 +9,7 @@ const buildServiceResponse = <T>(
     return {
         error,
         statusCode,
-        message: message || "",
+        message: message,
         data: data,
     };
 };

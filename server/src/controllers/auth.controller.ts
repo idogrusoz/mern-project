@@ -5,10 +5,10 @@ import { registerNewUser } from "../service/auth.service";
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
     const user: UserInterface = req.body;
-    const result: ServiceResponse<UserInterface> = await registerNewUser(user);
-    if (result.error) {
-        res.status(result.statusCode).json({ message: result.message });
+    const { error, message, statusCode, data }: ServiceResponse<UserInterface> = await registerNewUser(user);
+    if (error) {
+        res.status(statusCode).json({ message });
     } else {
-        res.status(200).json({ user: result.data });
+        res.status(200).json({ user: data });
     }
 };
