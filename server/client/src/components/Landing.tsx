@@ -1,7 +1,12 @@
-import React from "react";
+import { Container } from "@material-ui/core";
+import React, { useContext } from "react";
+import { AuthContext } from "./auth/AuthContext";
+import Register from "./auth/Register";
+import SignIn from "./auth/SignIn";
 
 const Landing = () => {
-    return <div></div>;
+    const { showSignin } = useContext(AuthContext);
+    return <Container maxWidth="sm">{showSignin ? <SignIn /> : <Register />}</Container>;
 };
 
 export default Landing;
