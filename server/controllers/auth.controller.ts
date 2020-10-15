@@ -20,6 +20,6 @@ export const signIn = async (req: Request, res: Response, next: NextFunction): P
     } else {
         const token = signToken(data!._id);
         res.cookie("access_token", token, { httpOnly: true, sameSite: true });
-        res.status(200).json({ isAthenticated: true, user: data, token });
+        res.status(200).json({ isAuthenticated: true, user: data, token });
     }
 };
