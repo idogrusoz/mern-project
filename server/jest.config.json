@@ -2,5 +2,5 @@
     "testRegex": "((\\.|/*.)(test))\\.ts?$",
     "moduleFileExtensions": ["ts", "js", "json", "node"],
     "preset": "@shelf/jest-mongodb",
-    "setupFilesAfterEnv": ["./src/tests/jest.setup.ts"]
+    "setupFilesAfterEnv": ["./tests/jest.setup.ts"]
 }
