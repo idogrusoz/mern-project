@@ -12,7 +12,7 @@ const SignIn = () => {
                 spacing={2}
                 alignItems="center"
                 direction="column"
-                style={{ height: "100vh" }}
+                style={{ overflowX: "auto", minHeight: " 100vh" }}
             >
                 <Grid item>
                     <TextField
