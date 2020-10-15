@@ -1,4 +1,9 @@
-import { ServiceResponse } from "../interfaces/user.interfaces";
+export interface ServiceResponse<T> {
+    statusCode: number;
+    error: boolean;
+    message?: string;
+    data?: T;
+}
 
 const buildServiceResponse = <T>(
     error: boolean,
