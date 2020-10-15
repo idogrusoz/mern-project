@@ -2,3 +2,23 @@ server/node_modules
 server/.env
 server/globalConfig.json
 server/src/tests/jest.setup.js
+server/client/node_modules
+server/client/.pnp
+server/client/.pnp.js
+
+# testing
+server/client//coverage
+
+# production
+server/client//build
+
+# misc
+server/client/.DS_Store
+server/client/.env.local
+server/client/.env.development.local
+server/client/.env.test.local
+server/client/.env.production.local
+
+server/client/npm-debug.log*
+server/client/yarn-debug.log*
+server/client/yarn-error.log*
