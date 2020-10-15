@@ -137,7 +137,6 @@ const AuthContextProvider: FunctionComponent<Props> = ({ children }) => {
         const body: SignInUser = { email, password };
         try {
             const response = await api.post("auth/signin", body);
-            console.log(1111111111111, response.data.isAuthenticated);
             setAuthenticated(response.data.isAthenticated);
             setUser(response.data.user);
         } catch (error) {
