@@ -1,14 +1,19 @@
-export interface UserInterface {
+export interface BaseUser {
     firstName: string;
     lastName: string;
     displayName: string;
     email: string;
+}
+
+export interface UserInterface extends BaseUser {
     password: string;
 }
 
-export interface ServiceResponse<T> {
-    statusCode: number;
-    error: boolean;
-    message?: string;
-    data?: T;
+export interface ResponseUser extends BaseUser {
+    _id: string;
+}
+
+export interface SignInUser {
+    email: string;
+    password: string;
 }
