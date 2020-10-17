@@ -18,8 +18,16 @@ export const signIn = async (req: Request, res: Response, next: NextFunction): P
     if (error) {
         res.status(statusCode).json({ message });
     } else {
-        const token = signToken(data!._id);
-        res.cookie("access_token", token, { httpOnly: true, sameSite: true });
-        res.status(200).json({ isAuthenticated: true, user: data, token });
+        passToken(res, data!);
     }
+};
+
+const passToken = (res: Response, user: ResponseUser): void => {
+    const token = signToken(user._id);
+    res.cookie("access_token", token, { httpOnly: true, sameSite: true });
+    res.status(200).json({ isAuthenticated: true, user, token });
+};
+
+export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    passToken(res, req.body.user);
 };

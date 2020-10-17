@@ -29,11 +29,6 @@ const findUser = async (email: string): Promise<UserDocument | null> => {
     return user;
 };
 
-const findUserByEmailCredentials = async (email: string, password: string): Promise<UserDocument | null> => {
-    const user = await UserModel.findByCredentials(email, password);
-    return user;
-};
-
 const createUser = async (data: UserInterface): Promise<UserDocument> => {
     const newUser = await UserModel.create(data);
     return newUser;
@@ -53,6 +48,11 @@ export const signInUser = async (data: SignInUser): Promise<ServiceResponse<Resp
     }
 };
 
+const findUserByEmailCredentials = async (email: string, password: string): Promise<UserDocument | null> => {
+    const user = await UserModel.findByCredentials(email, password);
+    return user;
+};
+
 const buildUser = (user: UserDocument): ResponseUser => {
     return {
         _id: user._id,
@@ -67,4 +67,23 @@ export const signToken = (userId: string): string => {
     return JWT.sign({ _id: userId, access: "user" }, process.env.JWT_SECRET as string, {
         expiresIn: "24h",
     });
+};
+
+export const verifyToken = async (token: string): Promise<ServiceResponse<ResponseUser>> => {
+    const decoded = JWT.verify(token, process.env.JWT_SECRET as string) as { _id: string; access: string };
+    try {
+        const user = await findById(decoded._id);
+        if (user === null) {
+            return buildServiceResponse(true, 401, "Unauthorized");
+        } else {
+            return buildServiceResponse(false, 200, "", buildUser(user));
+        }
+    } catch (error) {
+        return buildServiceResponse(true, 500, "An error occured");
+    }
+};
+
+const findById = async (id: string): Promise<UserDocument | null> => {
+    const user = await UserModel.findById(id);
+    return user;
 };

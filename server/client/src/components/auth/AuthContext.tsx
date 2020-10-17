@@ -7,6 +7,7 @@ import React, {
     SetStateAction,
     ReactNode,
     useCallback,
+    useEffect,
 } from "react";
 import api from "../../api";
 import { ResponseUser } from "../../../../interfaces/user.interfaces";
@@ -39,28 +40,28 @@ const AuthContextProvider: FunctionComponent<Props> = ({ children }) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<ResponseUser | null>(null);
 
-    // Tobe uncommented once API route s built
-    // const isAuthenticated = useCallback(async (): Promise<void> => {
-    //     try {
-    //         const response = await api.get("auth/authenticated");
-    //         console.log(response.status);
-    //         setAuthenticated(response.data.isAuthenticated);
-    //         if (!user) {
-    //             setUser(response.data.user);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //         setAuthenticated(false);
-    //         setUser(null);
-    //     }
-    // }, [user]);
+    const isAuthenticated = useCallback(async (): Promise<void> => {
+        try {
+            const response = await api.get("auth/authenticate");
+            setAuthenticated(response.data.isAuthenticated);
+            if (!user) {
+                setUser(response.data.user);
+            }
+        } catch (error) {
+            console.log(error);
+            setAuthenticated(false);
+            setUser(null);
+        }
+    }, [user]);
 
-    // useEffect(() => {
-    //     const fetch = () => {
-    //         isAuthenticated();
-    //     };
-    //     fetch();
-    // }, [isAuthenticated]);
+    useEffect(() => {
+        const fetch = () => {
+            isAuthenticated();
+        };
+        if (!authenticated) {
+            fetch();
+        }
+    }, [isAuthenticated]);
 
     const logOut = useCallback(async () => {
         try {
