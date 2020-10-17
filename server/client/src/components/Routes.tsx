@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Route, RouteComponentProps, Router, Switch } from "react-router-dom";
 import { AuthContext } from "./auth/AuthContext";
-import Landing from "./Landing";
+import Landing from "./auth/Landing";
 import Profile from "./Profile";
 
 const Routes = ({ history, location }: RouteComponentProps<{}>) => {

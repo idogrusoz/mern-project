@@ -1,9 +1,16 @@
 import { Button, Grid, TextField } from "@material-ui/core";
-import React, { useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { Dispatch, FunctionComponent, SetStateAction } from "react";
 
-const SignIn = () => {
-    const { email, setEmail, password, setPassword, setShowSignin, signin } = useContext(AuthContext);
+export type SignInProps = {
+    email: string;
+    setEmail: Dispatch<SetStateAction<string>>;
+    password: string;
+    setPassword: Dispatch<SetStateAction<string>>;
+    setShowSignin: Dispatch<SetStateAction<boolean>>;
+    signin: () => void;
+};
+
+const SignIn: FunctionComponent<SignInProps> = ({ email, setEmail, password, setPassword, setShowSignin, signin }) => {
     return (
         <>
             <Grid
@@ -33,7 +40,7 @@ const SignIn = () => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button type="submit" variant="contained" color="primary" size="large" onClick={() => signin()}>
+                    <Button type="submit" variant="contained" color="primary" size="large" onClick={signin}>
                         Sign In
                     </Button>
                 </Grid>
@@ -44,7 +51,6 @@ const SignIn = () => {
                         color="primary"
                         size="large"
                         onClick={() => {
-                            console.log(1);
                             setShowSignin(false);
                         }}
                     >

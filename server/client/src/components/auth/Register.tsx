@@ -1,22 +1,34 @@
 import { Button, Grid, TextField } from "@material-ui/core";
-import React, { useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { Dispatch, FunctionComponent, SetStateAction } from "react";
 
-const Register = () => {
-    const {
-        firstName,
-        setFirstName,
-        lastName,
-        setLastName,
-        password,
-        setPassword,
-        password2,
-        setPassword2,
-        setShowSignin,
-        register,
-        email,
-        setEmail,
-    } = useContext(AuthContext);
+export type RegisterProps = {
+    firstName: string;
+    setFirstName: Dispatch<SetStateAction<string>>;
+    lastName: string;
+    setLastName: Dispatch<SetStateAction<string>>;
+    password: string;
+    setPassword: Dispatch<SetStateAction<string>>;
+    password2: string;
+    setPassword2: Dispatch<SetStateAction<string>>;
+    setShowSignin: Dispatch<SetStateAction<boolean>>;
+    register: () => void;
+    email: string;
+    setEmail: Dispatch<SetStateAction<string>>;
+};
+const Register: FunctionComponent<RegisterProps> = ({
+    email,
+    firstName,
+    lastName,
+    password,
+    password2,
+    register,
+    setEmail,
+    setFirstName,
+    setLastName,
+    setPassword,
+    setPassword2,
+    setShowSignin,
+}) => {
     return (
         <>
             <Grid
@@ -73,12 +85,18 @@ const Register = () => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button type="submit" color="primary" variant="contained" onClick={() => register()}>
+                    <Button type="submit" color="primary" variant="contained" onClick={register}>
                         Register
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button type="submit" color="primary" variant="contained" onClick={() => setShowSignin(true)}>
+                    <Button
+                        id="signinButton"
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                        onClick={() => setShowSignin(true)}
+                    >
                         SignIn
                     </Button>
                 </Grid>
