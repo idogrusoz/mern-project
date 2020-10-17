@@ -22,3 +22,5 @@ server/client/.env.production.local
 server/client/npm-debug.log*
 server/client/yarn-debug.log*
 server/client/yarn-error.log*
+.vscode
+server/client/coverage
