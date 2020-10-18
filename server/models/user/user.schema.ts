@@ -38,9 +38,9 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.generateAuthToken = function () {
-    const user = this;
+    const User = this;
     const access = "user";
-    const token = JWT.sign({ _id: user._id.toHexString(), access }, process.env.JWT_SECRET as string).toString();
+    const token = JWT.sign({ _id: User._id.toHexString(), access }, process.env.JWT_SECRET as string).toString();
     return token;
 };
 
@@ -81,13 +81,19 @@ UserSchema.statics.findByCredentials = function (email: string, password: string
 UserSchema.pre<UserDocument>("save", function (this: UserDocument, next) {
     var user = this;
 
-    if (!this.isModified("password")) return next();
+    if (!this.isModified("password")) {
+        return next();
+    }
 
     bcrypt.genSalt(10, function (err, salt) {
-        if (err) return next(err);
+        if (err) {
+            return next(err);
+        }
 
         bcrypt.hash(user.password, salt, function (err, hash) {
-            if (err) return next(err);
+            if (err) {
+                return next(err);
+            }
             user.password = hash;
             next();
         });
