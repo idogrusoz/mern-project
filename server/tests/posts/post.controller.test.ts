@@ -1,0 +1,133 @@
+import { deletePost, findLikedPosts, updatePost } from "../../service/post.service";
+jest.mock("../../service/auth.service");
+jest.mock("../../service/post.service");
+jest.mock("../../utils/tokenExtractor");
+import { mockPostWithId1, mockPostWithId2, mockPostWithId4, mockPostWithId5 } from "../test-resources/post";
+import { responseUser2 } from "../test-resources/user";
+import request from "supertest";
+import { app, server } from "../../app";
+import mongoose from "../../config/db";
+import { ResponseUser } from "../../interfaces/user.interfaces";
+import { verifyToken } from "../../service/auth.service";
+import buildServiceResponse, { ServiceResponse } from "../../utils/serviceResponse";
+import { tokenExtractor } from "../../utils/tokenExtractor";
+import { responseUser } from "../test-resources/user";
+import { BasePostDocument } from "../../interfaces/post.interfaces";
+import { createPost, getPostById, getPostsByUserId } from "../../service/post.service";
+
+describe("Posts endpoints tests", () => {
+    const api = request(app);
+    beforeAll(async (done) => {
+        done();
+    });
+
+    afterAll(async (done) => {
+        await mongoose.disconnect();
+        await server.close(done);
+    });
+
+    const auth = (id: "1" | "2") => {
+        (tokenExtractor as jest.Mock).mockReturnValue("x");
+        const mockSuccessResponse: ServiceResponse<ResponseUser> = buildServiceResponse(
+            false,
+            200,
+            "",
+            id === "1" ? responseUser : responseUser2,
+        );
+        (verifyToken as jest.Mock).mockReturnValue(mockSuccessResponse);
+    };
+    it("doesn't allow to add post if not user", async () => {
+        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
+            false,
+            200,
+            "",
+            mockPostWithId1,
+        );
+        (createPost as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.post("/api/v1/posts").send(mockPostWithId1);
+        expect(res.status).toBe(401);
+    });
+    it("adds a new post", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
+            false,
+            200,
+            "",
+            mockPostWithId1,
+        );
+        (createPost as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.post("/api/v1/posts").send(mockPostWithId1);
+        expect(res.status).toBe(200);
+        expect(res.body.data).toEqual(mockPostWithId1);
+    });
+    it("finds post by id", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
+            false,
+            200,
+            "",
+            mockPostWithId2,
+        );
+        (getPostById as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/posts/postdId2");
+        expect(res.status).toBe(200);
+        expect(res.body.data).toEqual(mockPostWithId2);
+    });
+    it("finds all posts of a user", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<Array<BasePostDocument>> = buildServiceResponse(false, 200, "", [
+            mockPostWithId4,
+            mockPostWithId5,
+        ]);
+        (getPostsByUserId as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/posts/user/userId2");
+        expect(getPostsByUserId).toBeCalledWith("userId2");
+        expect(res.status).toBe(200);
+        expect(res.body.data.length).toBe(2);
+    });
+    it("doesn't update if id doesn't mactch", async () => {
+        auth("2");
+        const res = await api.put("/api/v1/posts/postId4").send(mockPostWithId5);
+        expect(res.status).toBe(400);
+    });
+    it("doesn't update without ownership", async () => {
+        auth("2");
+        const res = await api.put("/api/v1/posts/postId1").send(mockPostWithId1);
+        expect(res.status).toBe(401);
+    });
+    it("updates a post", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(false, 200, "", {
+            ...mockPostWithId2,
+            textContent: "myUpdatedPost",
+        });
+        (updatePost as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.put("/api/v1/posts/postId2").send(mockPostWithId2);
+        expect(res.status).toBe(200);
+        expect(res.body.data.textContent).toBe("myUpdatedPost");
+    });
+    it("deletes a post", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
+            false,
+            200,
+            "",
+            mockPostWithId2,
+        );
+        (deletePost as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.delete("/api/v1/posts/postId2");
+        expect(res.status).toBe(200);
+        expect(res.body.data.textContent).toBe("myPost2");
+    });
+    it("finds posts by user likes", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<Array<BasePostDocument>> = buildServiceResponse(false, 200, "", [
+            mockPostWithId4,
+            mockPostWithId5,
+        ]);
+        (findLikedPosts as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/posts/likedbyuser/userId");
+        expect(findLikedPosts).toBeCalledWith("userId");
+        expect(res.status).toBe(200);
+    });
+});
