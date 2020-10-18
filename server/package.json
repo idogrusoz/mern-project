@@ -39,8 +39,8 @@
     },
     "scripts": {
         "start": "NODE_ENV=production node dist/app.js",
-        "dev": "nodemon src/app.ts",
+        "dev": "nodemon ./app.ts",
         "build": "tsc -p .",
-        "test": "NODE_ENV=test jest --config ./jest.config.json"
+        "test": "NODE_ENV=test jest --config ./jest.config.json --maxWorkers=1"
     }
 }
