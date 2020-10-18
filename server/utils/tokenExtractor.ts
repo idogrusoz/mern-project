@@ -7,7 +7,9 @@ export const tokenExtractor = (headers: IncomingHttpHeaders): string => {
         const accessToken: string = cookiesArray.filter((item: string) => {
             return item.startsWith("access_token");
         })[0];
-        token = accessToken && accessToken.split("=")[1];
+        if (accessToken) {
+            token = accessToken.split("=")[1];
+        }
     }
     return token;
 };
