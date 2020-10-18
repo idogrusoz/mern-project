@@ -16,11 +16,11 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
                 return buildServiceResponse(true, 500, "An error occured");
             }
         } else {
-            return buildServiceResponse(true, 401, "This email is already in use");
+            return buildServiceResponse(true, 409, "This email is already in use");
         }
     } catch (error) {
         console.log(error);
-        return buildServiceResponse(true, 500, "An error occured");
+        return buildServiceResponse(true, 400, error.message);
     }
 };
 
@@ -36,7 +36,7 @@ const createUser = async (data: UserInterface): Promise<UserDocument> => {
 
 export const signInUser = async (data: SignInUser): Promise<ServiceResponse<ResponseUser>> => {
     const user = await findUserByEmailCredentials(data.email, data.password);
-    if (user === null) {
+    if (!user) {
         const userWithEmail = await findUser(data.email);
         if (userWithEmail === null) {
             return buildServiceResponse(true, 404, "This user doesn't exist");
@@ -49,8 +49,12 @@ export const signInUser = async (data: SignInUser): Promise<ServiceResponse<Resp
 };
 
 const findUserByEmailCredentials = async (email: string, password: string): Promise<UserDocument | null> => {
-    const user = await UserModel.findByCredentials(email, password);
-    return user;
+    try {
+        const user = await UserModel.findByCredentials(email, password);
+        return user;
+    } catch (error) {
+        return null;
+    }
 };
 
 const buildUser = (user: UserDocument): ResponseUser => {
@@ -70,20 +74,19 @@ export const signToken = (userId: string): string => {
 };
 
 export const verifyToken = async (token: string): Promise<ServiceResponse<ResponseUser>> => {
-    const decoded = JWT.verify(token, process.env.JWT_SECRET as string) as { _id: string; access: string };
     try {
-        const user = await findById(decoded._id);
+        const user = await findByToken(token);
         if (user === null) {
             return buildServiceResponse(true, 401, "Unauthorized");
         } else {
             return buildServiceResponse(false, 200, "", buildUser(user));
         }
     } catch (error) {
-        return buildServiceResponse(true, 500, "An error occured");
+        return buildServiceResponse(true, 401, error.message);
     }
 };
 
-const findById = async (id: string): Promise<UserDocument | null> => {
-    const user = await UserModel.findById(id);
+const findByToken = async (token: string): Promise<UserDocument | null> => {
+    const user = await UserModel.findByToken(token);
     return user;
 };
