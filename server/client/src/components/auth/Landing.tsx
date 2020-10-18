@@ -42,13 +42,13 @@ const Landing = () => {
         const body: SignInUser = { email, password };
         try {
             const response = await api.post("auth/signin", body);
-            setAuthenticated(response.data.isAthenticated);
+            setAuthenticated(response.data.isAuthenticated);
             setUser(response.data.user);
         } catch (error) {
             setError(true);
             setErrorMessage(error.message);
         }
-    }, [email, password]);
+    }, [email, password, setAuthenticated, setUser]);
 
     return (
         <Container maxWidth="sm">
