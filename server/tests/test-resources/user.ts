@@ -1,4 +1,4 @@
-import { UserInterface, SignInUser, ResponseUser } from "./../../interfaces/user.interfaces";
+import { UserInterface, SignInUser, ResponseUser } from "../../interfaces/user.interfaces";
 export const mockUser: UserInterface = {
     displayName: "displayName",
     firstName: "firstName",
@@ -18,6 +18,14 @@ export const responseUser: ResponseUser = {
     firstName: "firstName",
     lastName: "lastName",
     email: `test@test.test`,
+};
+
+export const responseUser2: ResponseUser = {
+    _id: "userId2",
+    displayName: "displayName",
+    firstName: "firstName",
+    lastName: "lastName",
+    email: `test2@test.test`,
 };
 
 export const userWithCorrectPassword: SignInUser = {
