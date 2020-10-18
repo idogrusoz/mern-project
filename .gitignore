@@ -24,3 +24,4 @@ server/client/yarn-debug.log*
 server/client/yarn-error.log*
 .vscode
 server/client/coverage
+server/coverage
