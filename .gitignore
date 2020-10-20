@@ -25,3 +25,5 @@ server/client/yarn-error.log*
 .vscode
 server/client/coverage
 server/coverage
+server/client/src/components/addPost
+node_modules
