@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Route, RouteComponentProps, Router, Switch } from "react-router-dom";
+import AddPost from "./addPost/AddPost";
 import { AuthContext } from "./auth/AuthContext";
 import Landing from "./auth/Landing";
 import Profile from "./Profile";
@@ -18,6 +19,7 @@ const Routes = ({ history, location }: RouteComponentProps<{}>) => {
             {authenticated && user ? (
                 <Switch>
                     <Route exact path="/" component={Profile} />
+                    <Route exact path="/add-post" component={AddPost} />
                 </Switch>
             ) : (
                 <Route exact path="/" component={Landing} />
