@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography, useMediaQuery } from "@material-ui/core";
+import { Grid, Paper, Typography, useMediaQuery, makeStyles } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 
 type PostCanvasType = {
@@ -21,41 +21,39 @@ const PostCanvas: FunctionComponent<PostCanvasType> = ({
     textContent,
 }) => {
     const isBigScreen = useMediaQuery("(min-width: 650px)");
+    const useStyles = makeStyles({
+        wrapper: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            width: !isBigScreen ? 330 : 600,
+            height: !isBigScreen ? 220 : 400,
+            backgroundColor,
+            margin: "auto",
+        },
+        text: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            width: !isBigScreen ? 330 : 600,
+            height: !isBigScreen ? 220 : 400,
+            fontFamily,
+            color,
+            fontWeight,
+            fontSize: isBigScreen ? fontSize : fontSize * 0.66,
+            margin: "auto",
+            textAlign,
+        },
+    });
+    const classes = useStyles();
 
     return (
         <Grid container justify="center">
-            <Grid item md={12} justify="center">
-                <Paper
-                    elevation={3}
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        overflow: "hidden",
-                        width: !isBigScreen ? 330 : 600,
-                        height: !isBigScreen ? 220 : 400,
-                        backgroundColor,
-                        margin: "auto",
-                    }}
-                >
-                    <Typography
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            overflow: "hidden",
-                            width: !isBigScreen ? 330 : 600,
-                            height: !isBigScreen ? 220 : 400,
-                            fontFamily,
-                            color,
-                            fontWeight,
-                            fontSize,
-                            margin: "auto",
-                            textAlign,
-                        }}
-                    >
-                        {textContent}
-                    </Typography>
+            <Grid item md={12}>
+                <Paper elevation={3} className={classes.wrapper}>
+                    <Typography className={classes.text}>{textContent}</Typography>
                 </Paper>
             </Grid>
         </Grid>

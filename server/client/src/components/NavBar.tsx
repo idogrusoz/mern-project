@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const { signOut } = useContext(AuthContext);
+    const { signOut, user } = useContext(AuthContext);
     const history = useHistory();
     const classes = useStyles();
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -89,39 +89,48 @@ const NavBar = () => {
 
     return (
         <AppBar>
-            <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ width: 100, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={goToProfile}>Profile</MenuItem>
-                        <MenuItem onClick={goToAdd}>AddPost</MenuItem>
-                        <MenuItem onClick={handleSignOut}>SignOut</MenuItem>
-                    </Menu>
-                    <Typography variant="h6" style={{ fontWeight: 900 }}>
-                        KERPICH
-                    </Typography>
-                </div>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
+            <Toolbar style={{ display: "flex", justifyContent: "space-around" }}>
+                <Typography variant="h6" style={{ fontWeight: 900 }}>
+                    KERPICH
+                </Typography>
+                {user && (
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ "aria-label": "search" }}
+                        />
                     </div>
-                    <InputBase
-                        placeholder="Search…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ "aria-label": "search" }}
-                    />
-                </div>
-                <IconButton color="secondary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                    <Avatar />
-                </IconButton>
+                )}
+                {user && (
+                    <>
+                        <IconButton
+                            color="secondary"
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                        >
+                            <Avatar />
+                        </IconButton>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={goToProfile}>Profile</MenuItem>
+                            <MenuItem onClick={goToAdd}>AddPost</MenuItem>
+                            <MenuItem onClick={handleSignOut}>SignOut</MenuItem>
+                        </Menu>
+                    </>
+                )}
             </Toolbar>
         </AppBar>
     );
