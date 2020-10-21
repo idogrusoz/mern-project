@@ -64,6 +64,7 @@ const buildUser = (user: UserDocument): ResponseUser => {
         lastName: user.lastName,
         displayName: user.displayName,
         email: user.email,
+        userName: user.userName,
     };
 };
 

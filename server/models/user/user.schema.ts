@@ -35,6 +35,12 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    userName: {
+        type: String,
+        unique: true,
+        trim: true,
+        required: true,
+    },
 });
 
 UserSchema.methods.generateAuthToken = function () {

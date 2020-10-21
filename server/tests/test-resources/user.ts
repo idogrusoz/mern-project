@@ -5,6 +5,7 @@ export const mockUser: UserInterface = {
     lastName: "lastName",
     email: `test@test.test`,
     password: "password",
+    userName: "userName",
 };
 
 export const mockUserWithId = {
@@ -18,6 +19,7 @@ export const responseUser: ResponseUser = {
     firstName: "firstName",
     lastName: "lastName",
     email: `test@test.test`,
+    userName: "userName",
 };
 
 export const responseUser2: ResponseUser = {
@@ -26,6 +28,7 @@ export const responseUser2: ResponseUser = {
     firstName: "firstName",
     lastName: "lastName",
     email: `test2@test.test`,
+    userName: "userName",
 };
 
 export const userWithCorrectPassword: SignInUser = {

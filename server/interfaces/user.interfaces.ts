@@ -3,6 +3,7 @@ export interface BaseUser {
     lastName: string;
     displayName: string;
     email: string;
+    userName: string;
 }
 
 export interface UserInterface extends BaseUser {

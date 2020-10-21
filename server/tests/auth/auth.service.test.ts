@@ -1,4 +1,3 @@
-// jest.mock("./../../models/user/user.model");
 import { signInUser } from "./../../service/auth.service";
 import { UserModel } from "./../../models/user/user.model";
 import { mockUser, userWithCorrectPassword, userWithWrongPassword } from "../test-resources/user";
