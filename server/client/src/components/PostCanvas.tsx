@@ -44,15 +44,14 @@ const PostCanvas: FunctionComponent<PostCanvasType> = ({
                             justifyContent: "center",
                             alignItems: "center",
                             overflow: "hidden",
-                            width: 330,
-                            height: 220,
+                            width: !isBigScreen ? 330 : 600,
+                            height: !isBigScreen ? 220 : 400,
                             fontFamily,
                             color,
                             fontWeight,
                             fontSize,
                             margin: "auto",
                             textAlign,
-                            transform: isBigScreen ? "scale(1)" : "scale(0.66)",
                         }}
                     >
                         {textContent}
