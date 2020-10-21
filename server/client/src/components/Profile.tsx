@@ -1,16 +1,14 @@
-import { Avatar, Button, Container, Grid, SvgIcon, Typography, useMediaQuery } from "@material-ui/core";
+import { Container, Grid, IconButton } from "@material-ui/core";
+import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import React, { useContext, useEffect, useState } from "react";
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import { useHistory } from "react-router-dom";
 import { IPostInterface } from "../../../interfaces/post.interfaces";
 import api from "../api";
 import { AuthContext } from "./auth/AuthContext";
 import PostsContainer from "./PostsContainer";
 
-const Profile = () => {
-    const history = useHistory();
-    const isBigScreen = useMediaQuery("(min-width: 770px)");
-    const { user, signOut } = useContext(AuthContext);
+const Profile2 = () => {
+    const { user } = useContext(AuthContext);
     const [posts, setPosts] = useState<IPostInterface[]>([]);
     useEffect(() => {
         const fetchPosts = async () => {
@@ -24,68 +22,32 @@ const Profile = () => {
         fetchPosts();
     }, [user]);
     return (
-        <Container maxWidth="md">
-            <Grid
-                container
-                spacing={0}
-                direction="row"
-                justify="space-between"
-                style={!isBigScreen ? { height: "calc(100vh - 71px)" } : {width:920}}
-            >
-                <Grid container
-                    direction="row"
-                    md={2}
-                    xs={12}
-                    alignItems="baseline"
-                    justify=/*{isBigScreen ?*/ "space-around" /* : "flex-end"}*/
-                    style={!isBigScreen ? { height: 40, width: 300 } : { height:300, marginTop:50}}>
-
-                    <Grid item md={12} sm={4}>
-                        <BookmarksIcon fontSize="large" color="primary" />
-                    </Grid>
-                    <Grid item md={12} sm={4}>
-                        <BookmarksIcon fontSize="large" color="primary" />
-                    </Grid>
-                    <Grid item md={12} sm={4}>
-                        <BookmarksIcon fontSize="large" color="primary" />
-                    </Grid>
-                </Grid>
-                <Grid item md={8} xs={12}>
-                    <PostsContainer posts={posts} />
-                </Grid>
-                <Grid
-                    container
-                    direction="column"
-                    md={2}
-                    xs={12}
-                    alignItems="center"
-                    justify=/*{isBigScreen ?*/ "flex-start" /* : "flex-end"}*/
-                    style={!isBigScreen ? { height: 48 } : {}}
-                >
-                    <Grid container md={12} xs={3} justify="center" /*style={isBigScreen ? {} : { marginTop: 50 }}*/>
-                        <Grid item>
-                            <Avatar
-                                alt={`${user!.displayName}`}
-                                style={isBigScreen ? { width: 100, height: 100 } : {}}
-                            />
+        <div>
+            <Container maxWidth="md" style={{ display: "flex", justifyContent: "center" }}>
+                <Grid container direction="column" justify="center" style={{ width: 640 }}>
+                    <Grid container direction="row">
+                        <Grid container xs={6} justify="center">
+                            <Grid item>
+                                <IconButton color="primary">
+                                    <DynamicFeedIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                        <Grid container xs={6} justify="center">
+                            <Grid item>
+                                <IconButton color="primary">
+                                    <FavoriteIcon />
+                                </IconButton>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container md={12} xs={9} justify="center" alignContent="flex-start" spacing={1}>
-                        <Grid item>
-                            <Button variant="contained" color="primary" onClick={() => history.push("/add-post")}>
-                                AddPost
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={signOut}>
-                                Sign Out
-                            </Button>
-                        </Grid>
+                    <Grid item>
+                        <PostsContainer posts={posts} />
                     </Grid>
                 </Grid>
-            </Grid>
-        </Container>
+            </Container>
+        </div>
     );
 };
 
-export default Profile;
+export default Profile2;

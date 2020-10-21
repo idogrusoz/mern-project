@@ -10,6 +10,11 @@ const Routes = ({ history, location }: RouteComponentProps<{}>) => {
     const { authenticated, user, isAuthenticated } = useContext(AuthContext);
     const fetch = () => {
         isAuthenticated()
+            .then(() => {
+                if (!authenticated) {
+                    history.push("/");
+                }
+            })
             .then(() => setLoading(false))
             .catch((err) => console.log("Error: ", err));
     };
