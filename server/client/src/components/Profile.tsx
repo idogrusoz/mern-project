@@ -1,19 +1,39 @@
-import { Container, Grid, IconButton } from "@material-ui/core";
+import { Container, Grid, IconButton, makeStyles } from "@material-ui/core";
 import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { IPostInterface } from "../../../interfaces/post.interfaces";
 import api from "../api";
 import { AuthContext } from "./auth/AuthContext";
 import PostsContainer from "./PostsContainer";
 
-const Profile2 = () => {
+const useStyles = makeStyles({
+    container: { display: "flex", justifyContent: "center" },
+    grid: { width: 640 },
+    icon: {
+        textAlign: "center",
+    },
+});
+
+const Profile = () => {
     const { user } = useContext(AuthContext);
+    const location = useLocation();
     const [posts, setPosts] = useState<IPostInterface[]>([]);
+    const classes = useStyles();
+
+    const profileId = (): string => {
+        let profileId = location.pathname.replace("/", "");
+        if (profileId === "/") {
+            profileId += user!._id;
+        }
+        return profileId;
+    };
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const result = await api.get(`posts/user/${user!._id}`);
+                const result = await api.get(`posts/user/${profileId()}`);
                 setPosts([...result.data.data]);
             } catch (error) {
                 throw error;
@@ -22,32 +42,26 @@ const Profile2 = () => {
         fetchPosts();
     }, [user]);
     return (
-        <div>
-            <Container maxWidth="md" style={{ display: "flex", justifyContent: "center" }}>
-                <Grid container direction="column" justify="center" style={{ width: 640 }}>
-                    <Grid container direction="row">
-                        <Grid container xs={6} justify="center">
-                            <Grid item>
-                                <IconButton color="primary">
-                                    <DynamicFeedIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                        <Grid container xs={6} justify="center">
-                            <Grid item>
-                                <IconButton color="primary">
-                                    <FavoriteIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
+        <Container maxWidth="md" className={classes.container}>
+            <Grid container direction="column" justify="center" className={classes.grid}>
+                <Grid container direction="row">
+                    <Grid item xs={6} className={classes.icon}>
+                        <IconButton color="primary">
+                            <DynamicFeedIcon />
+                        </IconButton>
                     </Grid>
-                    <Grid item>
-                        <PostsContainer posts={posts} />
+                    <Grid item xs={6} className={classes.icon}>
+                        <IconButton color="primary">
+                            <FavoriteIcon />
+                        </IconButton>
                     </Grid>
                 </Grid>
-            </Container>
-        </div>
+                <Grid item>
+                    <PostsContainer posts={posts} />
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 
-export default Profile2;
+export default Profile;
