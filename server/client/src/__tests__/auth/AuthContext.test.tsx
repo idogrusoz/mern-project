@@ -32,16 +32,17 @@ describe("Auth context test", () => {
         firstName: "firstName",
         lastName: "lastName",
         displayName: "displayName",
+        userName: "userName",
         email: "email",
     };
     const TestComponent = () => {
-        const { authenticated, user, setUser, logOut } = useContext(AuthContext);
+        const { authenticated, user, setUser, signOut } = useContext(AuthContext);
         return (
             <>
                 <p data-testid="authenticated">{authenticated.toString()}</p>
                 {user && <p data-testid="user">{user?.firstName}</p>}
                 <button onClick={() => setUser(mockUser)}>SetUser</button>
-                <button onClick={logOut}>LogOut</button>
+                <button onClick={signOut}>LogOut</button>
             </>
         );
     };

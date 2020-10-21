@@ -10,7 +10,7 @@ Object {
       >
         <div
           class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
-          style="display: flex; justify-content: left;"
+          style="display: flex; justify-content: space-around;"
         >
           <h6
             class="MuiTypography-root MuiTypography-h6"
@@ -23,105 +23,9 @@ Object {
       <div
         style="margin-top: 70px;"
       >
-        <div
-          class="MuiContainer-root MuiContainer-maxWidthSm"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-            style="overflow-x: auto; min-height: 100vh;"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <div
-                class="MuiFormControl-root MuiTextField-root"
-              >
-                <label
-                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-                  data-shrink="false"
-                  for="standard-basic"
-                  id="standard-basic-label"
-                >
-                  Email
-                </label>
-                <div
-                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                >
-                  <input
-                    aria-invalid="false"
-                    class="MuiInputBase-input MuiInput-input"
-                    id="standard-basic"
-                    type="Email"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <div
-                class="MuiFormControl-root MuiTextField-root"
-              >
-                <label
-                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-                  data-shrink="false"
-                  for="standard-basic"
-                  id="standard-basic-label"
-                >
-                  Password
-                </label>
-                <div
-                  class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                >
-                  <input
-                    aria-invalid="false"
-                    class="MuiInputBase-input MuiInput-input"
-                    id="standard-basic"
-                    type="Password"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
-                tabindex="0"
-                type="submit"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  Sign In
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
-                tabindex="0"
-                type="submit"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  Register
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
+        <h1>
+          Loading
+        </h1>
       </div>
     </div>
   </body>,
@@ -131,7 +35,7 @@ Object {
     >
       <div
         class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
-        style="display: flex; justify-content: left;"
+        style="display: flex; justify-content: space-around;"
       >
         <h6
           class="MuiTypography-root MuiTypography-h6"
@@ -144,105 +48,9 @@ Object {
     <div
       style="margin-top: 70px;"
     >
-      <div
-        class="MuiContainer-root MuiContainer-maxWidthSm"
-      >
-        <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-          style="overflow-x: auto; min-height: 100vh;"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-item"
-          >
-            <div
-              class="MuiFormControl-root MuiTextField-root"
-            >
-              <label
-                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-                data-shrink="false"
-                for="standard-basic"
-                id="standard-basic-label"
-              >
-                Email
-              </label>
-              <div
-                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-              >
-                <input
-                  aria-invalid="false"
-                  class="MuiInputBase-input MuiInput-input"
-                  id="standard-basic"
-                  type="Email"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-          >
-            <div
-              class="MuiFormControl-root MuiTextField-root"
-            >
-              <label
-                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
-                data-shrink="false"
-                for="standard-basic"
-                id="standard-basic-label"
-              >
-                Password
-              </label>
-              <div
-                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-              >
-                <input
-                  aria-invalid="false"
-                  class="MuiInputBase-input MuiInput-input"
-                  id="standard-basic"
-                  type="Password"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-          >
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
-              tabindex="0"
-              type="submit"
-            >
-              <span
-                class="MuiButton-label"
-              >
-                Sign In
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-          >
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
-              tabindex="0"
-              type="submit"
-            >
-              <span
-                class="MuiButton-label"
-              >
-                Register
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+      <h1>
+        Loading
+      </h1>
     </div>
   </div>,
   "debug": [Function],
