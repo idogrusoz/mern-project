@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostCanvas test renders without crash 1`] = `
+<WithStyles(ForwardRef(Grid))
+  container={true}
+  justify="center"
+>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    md={12}
+  >
+    <WithStyles(ForwardRef(Paper))
+      className="makeStyles-wrapper-1"
+      elevation={3}
+    >
+      <WithStyles(ForwardRef(Typography))
+        className="makeStyles-text-2"
+      />
+    </WithStyles(ForwardRef(Paper))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
+`;

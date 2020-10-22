@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar test renders without crash 1`] = `
+<WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Toolbar))
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-around",
+      }
+    }
+  >
+    <WithStyles(ForwardRef(Typography))
+      style={
+        Object {
+          "fontWeight": 900,
+        }
+      }
+      variant="h6"
+    >
+      KERPICH
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
+`;

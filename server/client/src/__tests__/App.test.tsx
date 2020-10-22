@@ -6,7 +6,7 @@ import * as ReactRouterDom from "react-router-dom";
 import App from "../App";
 
 test("matches the snapshot", () => {
-    const location = { ...window.location, state: "" };
+    const location = { ...window.location, state: "/" };
     const history = createMemoryHistory();
     const match: ReactRouterDom.match = {
         isExact: true,

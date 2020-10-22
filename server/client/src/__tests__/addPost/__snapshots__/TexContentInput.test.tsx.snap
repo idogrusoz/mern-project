@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextContentInput test renders without crash 1`] = `
+<WithStyles(ForwardRef(TextField))
+  fullWidth={true}
+  id="standard-basic"
+  label="Text"
+  onChange={[Function]}
+  type="text"
+  value=""
+/>
+`;

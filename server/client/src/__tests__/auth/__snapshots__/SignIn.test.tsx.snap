@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn component renders without crash 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="center"
+    container={true}
+    direction="column"
+    justify="center"
+    spacing={2}
+    style={
+      Object {
+        "minHeight": " 100vh",
+        "overflowX": "auto",
+      }
+    }
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Email"
+        name="email"
+        onChange={[Function]}
+        type="Email"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Password"
+        name="password"
+        onChange={[Function]}
+        type="Password"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        size="large"
+        type="submit"
+        variant="contained"
+      >
+        Sign In
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        onClick={[Function]}
+        size="large"
+        variant="contained"
+      >
+        Register
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</form>
+`;

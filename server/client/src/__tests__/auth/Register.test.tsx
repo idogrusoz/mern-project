@@ -1,4 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
+import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
 import React from "react";
 import Register, { RegisterProps } from "../../components/auth/Register";
@@ -11,6 +12,7 @@ describe("Register component", () => {
     const wrapper = shallow(<Register {...props} />);
 
     it("renders without crash", () => {
+        expect(toJson(wrapper)).toMatchSnapshot();
         expect(wrapper).toHaveLength(1);
     });
     it("has five text fields", () => {

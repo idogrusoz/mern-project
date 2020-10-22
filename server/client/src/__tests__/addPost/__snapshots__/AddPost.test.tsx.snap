@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddPost test renders without crash 1`] = `
+<WithStyles(ForwardRef(Grid))
+  alignItems="center"
+  className="makeStyles-container-5"
+  container={true}
+  direction="row"
+  justify="center"
+  spacing={2}
+>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    lg={7}
+    md={12}
+  >
+    <PostCanvas
+      backgroundColor="#ffffff"
+      color="#000000"
+      fontFamily="Roboto"
+      fontSize={16}
+      fontWeight={400}
+      textAlign="left"
+      textContent=""
+    />
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    lg={5}
+    md={12}
+  >
+    <PostAttributes
+      addPost={[Function]}
+      backgroundColor="#ffffff"
+      color="#000000"
+      fontFamily="Roboto"
+      fontSize={16}
+      fontWeight={400}
+      setBackgroundColor={[Function]}
+      setColor={[Function]}
+      setFontFamily={[Function]}
+      setFontSize={[Function]}
+      setFontWeight={[Function]}
+      setTextAlign={[Function]}
+      setTextContent={[Function]}
+      textAlign="left"
+      textContent=""
+    />
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
+`;

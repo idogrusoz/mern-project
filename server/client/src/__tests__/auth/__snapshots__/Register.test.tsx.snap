@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register component renders without crash 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="center"
+    className="makeStyles-container-1"
+    container={true}
+    direction="column"
+    justify="center"
+    spacing={2}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="First Name"
+        name="firstName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Last Name"
+        name="lastName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="User Name"
+        name="userName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Email"
+        name="email"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Password"
+        name="password"
+        onChange={[Function]}
+        type="Password"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        id="standard-basic"
+        label="Confirm Password"
+        name="password2"
+        onChange={[Function]}
+        type="Password"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        type="submit"
+        variant="contained"
+      >
+        Register
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        id="signinButton"
+        onClick={[Function]}
+        variant="contained"
+      >
+        SignIn
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</form>
+`;

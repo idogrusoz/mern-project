@@ -1,4 +1,5 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
 import React from "react";
 import SignIn, { SignInProps } from "../../components/auth/SignIn";
@@ -10,10 +11,7 @@ describe("SignIn component", () => {
     };
     const wrapper = shallow(<SignIn {...props} />);
     it("renders without crash", () => {
-        expect(wrapper).toHaveLength(1);
-    });
-    it("has two text fields", () => {
-        expect(wrapper.find(TextField)).toHaveLength(2);
+        expect(toJson(wrapper)).toMatchSnapshot();
     });
     it("changes showsignin value", () => {
         wrapper.find(Button).at(1).simulate("click");

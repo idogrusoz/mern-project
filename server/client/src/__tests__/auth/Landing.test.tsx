@@ -1,4 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
+import toJson from "enzyme-to-json";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import Landing from "../../components/auth/Landing";
@@ -9,7 +10,7 @@ describe("Landing component", () => {
         wrapper = mount(<Landing />);
     });
     it("renders without crashing", () => {
-        expect(wrapper).toMatchSnapshot();
+        expect(toJson(wrapper)).toMatchSnapshot();
     });
     it("renders switches between signin ad register", () => {
         expect(wrapper.find(TextField)).toHaveLength(2);
