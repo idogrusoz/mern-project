@@ -10,11 +10,9 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
     try {
         if (getExistingUser === null) {
             const image = await generateImage();
-            console.log("image", image);
             if (image !== "") {
                 user.image = image;
             }
-            console.log("user", user);
             const newUser = await createUser(user);
             console.log("New user created");
             if (newUser) {
