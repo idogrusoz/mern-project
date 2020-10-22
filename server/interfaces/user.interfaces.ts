@@ -19,3 +19,9 @@ export interface SignInUser {
     email: string;
     password: string;
 }
+
+export interface SearchedUser {
+    _id: string;
+    userName: string;
+    image: string;
+}

@@ -1,11 +1,12 @@
+import { mockUsersArray } from "./../test-resources/user";
 import { UserModel } from "../../models/user/user.model";
 import { mockUser } from "../test-resources/user";
 import { registerNewUser } from "../../service/auth.service";
-import { BaseUser } from "../../interfaces/user.interfaces";
+import { BaseUser, SearchedUser } from "../../interfaces/user.interfaces";
 import { ServiceResponse } from "../../utils/serviceResponse";
 import mongoose from "../../config/db";
 import { MONGO_URI } from "../jest.setup";
-import { isUserNameFree } from "../../service/user.service";
+import { isUserNameFree, search } from "../../service/user.service";
 
 describe("Auth service tests", () => {
     let connection: typeof mongoose;
@@ -30,5 +31,13 @@ describe("Auth service tests", () => {
     it("returns true if username doesn't exist", async () => {
         const response: ServiceResponse<boolean> = await isUserNameFree(mockUser.userName + "1");
         expect(response.data).toBeTruthy();
+    });
+    it("returns search users with a search term", async () => {
+        for (let user of mockUsersArray) {
+            await UserModel.create(user);
+        }
+        const response: ServiceResponse<SearchedUser[]> = await search("post");
+        console.log("response.data", response.data);
+        expect(response.data?.length).toBe(3);
     });
 });

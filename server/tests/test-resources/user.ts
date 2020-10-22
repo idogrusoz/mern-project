@@ -40,3 +40,46 @@ export const userWithWrongPassword: SignInUser = {
     email: `testUser@test.test`,
     password: "wrong",
 };
+
+export const mockUsersArray: UserInterface[] = [
+    {
+        displayName: "Doe",
+        firstName: "John",
+        lastName: "Jon Doe",
+        email: `johndoe@test.test`,
+        password: "password",
+        userName: "noone",
+    },
+    {
+        displayName: "jane doe",
+        firstName: "jane",
+        lastName: "janeDoe",
+        email: `janedoe@test.test`,
+        password: "password",
+        userName: "noonesWife",
+    },
+    {
+        displayName: "ahmet",
+        firstName: "isim",
+        lastName: "soyad",
+        email: `posta@test.test`,
+        password: "password",
+        userName: "lakap",
+    },
+    {
+        displayName: "ali desidero",
+        firstName: "ali",
+        lastName: "desidero",
+        email: `postaci@test.test`,
+        password: "password",
+        userName: "nik",
+    },
+    {
+        displayName: "panter cemil",
+        firstName: "panter",
+        lastName: "cemil",
+        email: `kestane@test.test`,
+        password: "password",
+        userName: "postane",
+    },
+];
