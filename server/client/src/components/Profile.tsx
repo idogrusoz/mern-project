@@ -24,7 +24,7 @@ const Profile = () => {
 
     const profileId = (): string => {
         let profileId = location.pathname.replace("/", "");
-        if (profileId === "/") {
+        if (profileId === "") {
             profileId += user!._id;
         }
         return profileId;

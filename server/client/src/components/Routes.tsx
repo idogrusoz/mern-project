@@ -24,8 +24,8 @@ const Routes = ({ history, location }: RouteComponentProps<{}>) => {
             {authenticated && user ? (
                 <Switch>
                     <Route exact path="/" component={Profile} />
-                    <Route exact path="/:userName" component={Profile} />
-                    <Route exact path="/add-post" component={AddPost} />
+                    <Route path="/username/:username" component={Profile} />
+                    <Route path="/add-post" component={AddPost} />
                 </Switch>
             ) : (
                 <Route exact path="/" component={Landing} />
