@@ -9,6 +9,7 @@
         "@babel/preset-env": "^7.11.5",
         "@babel/preset-typescript": "^7.10.4",
         "@shelf/jest-mongodb": "^1.2.3",
+        "@types/axios": "^0.14.0",
         "@types/bcrypt": "^3.0.0",
         "@types/cors": "^2.8.8",
         "@types/dotenv": "^8.2.0",
@@ -28,6 +29,7 @@
     },
     "dependencies": {
         "@types/supertest": "^2.0.10",
+        "axios": "^0.20.0",
         "bcrypt": "^5.0.0",
         "connect-mongo": "^3.2.0",
         "cors": "^2.8.5",
