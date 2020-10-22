@@ -5,6 +5,7 @@ import { UserModel } from "../../models/user/user.model";
 import mongoose from "../../config/db";
 import { mockUser } from "../test-resources/user";
 import { MONGO_URI } from "../jest.setup";
+import { doesNotMatch } from "assert";
 
 describe("User model test", () => {
     let connection: typeof mongoose;
@@ -15,9 +16,10 @@ describe("User model test", () => {
         });
     });
 
-    afterAll(async () => {
+    afterAll(async (done) => {
         await UserModel.deleteMany({});
         await connection.disconnect();
+        await done();
     });
 
     it("should insert a doc into collection", async () => {

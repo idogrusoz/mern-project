@@ -1,4 +1,5 @@
 import JWT from "jsonwebtoken";
+import axios from "axios";
 import { UserModel } from "./../models/user/user.model";
 import { UserInterface, SignInUser, BaseUser, ResponseUser } from "./../interfaces/user.interfaces";
 import { UserDocument } from "../models/user/user.types";
@@ -8,6 +9,12 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
     const getExistingUser = await findUser(user.email);
     try {
         if (getExistingUser === null) {
+            const image = await generateImage();
+            console.log("image", image);
+            if (image !== "") {
+                user.image = image;
+            }
+            console.log("user", user);
             const newUser = await createUser(user);
             console.log("New user created");
             if (newUser) {
@@ -19,7 +26,7 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
             return buildServiceResponse(true, 409, "This email is already in use");
         }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return buildServiceResponse(true, 400, error.message);
     }
 };
@@ -27,6 +34,23 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
 const findUser = async (email: string): Promise<UserDocument | null> => {
     const user = await UserModel.findOne({ email });
     return user;
+};
+
+const generateImage = async (): Promise<string> => {
+    try {
+        const response = await axios("https://uifaces.co/api?limit=1", {
+            method: "GET",
+            headers: {
+                "X-API-KEY": process.env.UI_FACES_API_KEY as string,
+                Accept: "application/json",
+                "Cache-Control": "no-cache",
+            },
+        });
+        console.log("response.data", response.data);
+        return response.data[0].photo;
+    } catch (error) {
+        return "";
+    }
 };
 
 const createUser = async (data: UserInterface): Promise<UserDocument> => {
@@ -65,6 +89,7 @@ const buildUser = (user: UserDocument): ResponseUser => {
         displayName: user.displayName,
         email: user.email,
         userName: user.userName,
+        image: user.image,
     };
 };
 

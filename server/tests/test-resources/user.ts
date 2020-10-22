@@ -3,7 +3,7 @@ export const mockUser: UserInterface = {
     displayName: "displayName",
     firstName: "firstName",
     lastName: "lastName",
-    email: `test@test.test`,
+    email: `testUser@test.test`,
     password: "password",
     userName: "userName",
 };
@@ -18,7 +18,7 @@ export const responseUser: ResponseUser = {
     displayName: "displayName",
     firstName: "firstName",
     lastName: "lastName",
-    email: `test@test.test`,
+    email: `testUser@test.test`,
     userName: "userName",
 };
 
@@ -32,11 +32,11 @@ export const responseUser2: ResponseUser = {
 };
 
 export const userWithCorrectPassword: SignInUser = {
-    email: `test@test.test`,
+    email: `testUser@test.test`,
     password: "password",
 };
 
 export const userWithWrongPassword: SignInUser = {
-    email: `test@test.test`,
+    email: `testUser@test.test`,
     password: "wrong",
 };

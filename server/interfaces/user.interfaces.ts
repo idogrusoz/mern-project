@@ -4,6 +4,7 @@ export interface BaseUser {
     displayName: string;
     email: string;
     userName: string;
+    image?: string;
 }
 
 export interface UserInterface extends BaseUser {

@@ -15,9 +15,10 @@ describe("Auth service tests", () => {
         });
     });
 
-    afterAll(async () => {
+    afterAll(async (done) => {
         await UserModel.deleteMany({});
         await connection.disconnect();
+        await done();
     });
     it("returns success if user is created", async () => {
         const response: ServiceResponse<BaseUser> = await registerNewUser(mockUser);

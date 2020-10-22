@@ -41,6 +41,10 @@ const UserSchema = new Schema({
         trim: true,
         required: true,
     },
+    image: {
+        type: String,
+        required: false,
+    },
 });
 
 UserSchema.methods.generateAuthToken = function () {
