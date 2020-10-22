@@ -116,7 +116,7 @@ const NavBar = () => {
                             aria-haspopup="true"
                             onClick={handleClick}
                         >
-                            <Avatar />
+                            <Avatar src={user.image} />
                         </IconButton>
                         <Menu
                             id="simple-menu"
