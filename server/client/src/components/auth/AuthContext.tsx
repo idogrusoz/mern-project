@@ -11,7 +11,7 @@ import React, {
 import api from "../../api";
 import { ResponseUser } from "../../../../interfaces/user.interfaces";
 
-type AuthContextObject = {
+export type AuthContextObject = {
     isAuthenticated: () => Promise<void>;
     authenticated: boolean;
     setAuthenticated: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ type Props = {
     children: ReactNode;
 };
 
-const defaultCotextValue: AuthContextObject = {
+export const defaultContextValue: AuthContextObject = {
     isAuthenticated: () => new Promise(() => false),
     authenticated: false,
     setAuthenticated: () => {},
@@ -33,7 +33,7 @@ const defaultCotextValue: AuthContextObject = {
     signOut: () => new Promise(() => {}),
 };
 
-const AuthContext = createContext<AuthContextObject>(defaultCotextValue);
+const AuthContext = createContext<AuthContextObject>(defaultContextValue);
 
 const AuthContextProvider: FunctionComponent<Props> = ({ children }) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
