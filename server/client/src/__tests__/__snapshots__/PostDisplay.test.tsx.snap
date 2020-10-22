@@ -8,10 +8,11 @@ exports[`PostDisplay test renders without crash 1`] = `
     avatar={
       <ForwardRef(WithStyles)
         aria-label="recipe"
+        src=""
       />
     }
     subheader="Invalid Date Invalid Date"
-    title="userId"
+    title="userName"
   />
   <WithStyles(ForwardRef(CardContent))>
     <PostCanvas

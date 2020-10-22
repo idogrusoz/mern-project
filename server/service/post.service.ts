@@ -12,7 +12,7 @@ export const createPost = async (data: IPostInterface): Promise<ServiceResponse<
         console.log(`Post created with id:${post._id}`);
         return buildServiceResponse(false, 200, "", post);
     } catch (error) {
-        // console.log("Error", error);
+        console.log("Error", error);
         return buildServiceResponse(true, 500, error.message);
     }
 };
@@ -50,7 +50,7 @@ export const getPostsByUserId = async (user_id: string): Promise<ServiceResponse
 };
 
 const findByUser = async (user_id: string): Promise<Array<PostDocument>> => {
-    const posts = await PostModel.find({ user_id });
+    const posts = await PostModel.find({ "author.user_id": user_id });
     return posts;
 };
 
@@ -86,7 +86,7 @@ export const deletePost = async (postId: string, userId: string): Promise<Servic
 };
 
 const findAndDelete = async (_id: string, user_id: string): Promise<PostDocument | null> => {
-    const result = await PostModel.findOneAndDelete({ _id, user_id });
+    const result = await PostModel.findOneAndDelete({ _id, "author.user_id": user_id });
     return result;
 };
 

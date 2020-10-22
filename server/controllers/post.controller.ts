@@ -38,7 +38,7 @@ export const updateOne = async (req: Request, res: Response): Promise<Response> 
     if (post._id !== req.params.id) {
         return res.status(400).json({ message: "Bad request" });
     }
-    if (post.user_id !== req.body.user._id) {
+    if (post.author.user_id !== req.body.user._id) {
         return res.status(401).json({ message: "Unauthorized" });
     }
     try {

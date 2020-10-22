@@ -1,7 +1,11 @@
 import { BasePostDocument, IPostInterface } from "../../interfaces/post.interfaces";
 
 export const mockPost1: IPostInterface = {
-    user_id: "userId",
+    author: {
+        user_id: "userId",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myPost1",
     style: {
         backgroundColor: "bgcolor",
@@ -20,7 +24,11 @@ export const mockPostWithId1: BasePostDocument = {
 };
 
 export const mockPost2: IPostInterface = {
-    user_id: "userId",
+    author: {
+        user_id: "userId",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myPost2",
     style: {
         backgroundColor: "bgcolor",
@@ -39,7 +47,11 @@ export const mockPostWithId2: BasePostDocument = {
 };
 
 export const mockPost3: IPostInterface = {
-    user_id: "userId",
+    author: {
+        user_id: "userId",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myPost3",
     style: {
         backgroundColor: "bgcolor",
@@ -58,7 +70,11 @@ export const mockPostWithId3: BasePostDocument = {
 };
 
 export const mockPost4: IPostInterface = {
-    user_id: "userId2",
+    author: {
+        user_id: "userId2",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myPost4",
     style: {
         backgroundColor: "bgcolor",
@@ -77,7 +93,11 @@ export const mockPostWithId4: BasePostDocument = {
 };
 
 export const mockPost5: IPostInterface = {
-    user_id: "userId2",
+    author: {
+        user_id: "userId2",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myPost5",
     style: {
         backgroundColor: "bgcolor",
@@ -96,7 +116,11 @@ export const mockPostWithId5: BasePostDocument = {
 };
 
 export const mockUpdatePost5: IPostInterface = {
-    user_id: "userId2",
+    author: {
+        user_id: "userId2",
+        userName: "userName",
+        image: "image",
+    },
     textContent: "myUpdatedPost5",
     style: {
         backgroundColor: "bgcolor",

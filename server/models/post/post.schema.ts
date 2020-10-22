@@ -2,10 +2,18 @@ import { PostDocument } from "./post.types";
 import { Schema } from "mongoose";
 
 const PostSchema = new Schema({
-    user_id: {
-        type: String,
-        indexes: true,
-        required: true,
+    author: {
+        user_id: {
+            type: String,
+            indexes: true,
+            required: true,
+        },
+        userName: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
     },
     textContent: {
         type: String,

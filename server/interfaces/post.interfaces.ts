@@ -1,5 +1,5 @@
 export interface IPostInterface {
-    user_id: string;
+    author: PostAuthor;
     textContent: string;
     style: PostStyle;
     likes: string[];
@@ -14,6 +14,12 @@ export interface PostStyle {
     backgroundColor: string;
     textAlign: string;
     color: string;
+}
+
+export interface PostAuthor {
+    user_id: string;
+    userName: string;
+    image: string;
 }
 
 export interface BasePostDocument extends IPostInterface {

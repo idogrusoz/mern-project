@@ -9,7 +9,11 @@ describe("PostDisplay test", () => {
         post: {
             likes: [],
             textContent: "",
-            user_id: "userId",
+            author: {
+                user_id: "userId",
+                image: "",
+                userName: "userName",
+            },
             style: {
                 fontFamily: "Roboto",
                 color: "#ffffff",

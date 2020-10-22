@@ -20,8 +20,8 @@ const PostDisplay: FunctionComponent<PostDisplayProps> = ({ post }) => {
     return (
         <Card className={classes.card}>
             <CardHeader
-                avatar={<Avatar aria-label="recipe" />}
-                title={post.user_id}
+                avatar={<Avatar aria-label="recipe" src={post.author.image} />}
+                title={post.author.userName}
                 subheader={
                     new Date(post.updatedAt!).toDateString() + " " + new Date(post.updatedAt!).toLocaleTimeString()
                 }
