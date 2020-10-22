@@ -21,6 +21,8 @@ const Register: FunctionComponent<RegisterProps> = ({ register, setShowSignin })
     const [userNameInput, setUserNameInput] = useState<string>("");
     const classes = useStyles();
     const formik = useFormik({
+        validateOnBlur: true,
+        validateOnChange: false,
         initialValues: { firstName: "", lastName: "", userName: "", email: "", password: "", password2: "" },
         onSubmit: () => {
             const user: UserInterface = {

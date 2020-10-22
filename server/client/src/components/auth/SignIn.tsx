@@ -11,6 +11,8 @@ export type SignInProps = {
 
 const SignIn: FunctionComponent<SignInProps> = ({ setShowSignin, signin }) => {
     const formik = useFormik({
+        validateOnBlur: true,
+        validateOnChange: false,
         initialValues: { email: "", password: "" },
         onSubmit: () => {
             signin(formik.values);
