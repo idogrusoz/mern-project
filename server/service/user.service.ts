@@ -44,6 +44,7 @@ const mapUsers = (users: UserDocument[]): SearchedUser[] => {
             _id: user._id,
             image: user.image || "",
             userName: user.userName,
+            displayName: user.displayName,
         };
     });
 };

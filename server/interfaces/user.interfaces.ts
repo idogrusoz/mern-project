@@ -24,4 +24,5 @@ export interface SearchedUser {
     _id: string;
     userName: string;
     image: string;
+    displayName: string;
 }
