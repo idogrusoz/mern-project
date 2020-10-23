@@ -6,6 +6,11 @@ exports[`PostsContainer test renders without crash 1`] = `
     key="0"
     post={
       Object {
+        "author": Object {
+          "image": "",
+          "userName": "userName",
+          "user_id": "userId",
+        },
         "likes": Array [],
         "style": Object {
           "backgroundColor": "#ffffff",
@@ -16,7 +21,6 @@ exports[`PostsContainer test renders without crash 1`] = `
           "textAlign": "left",
         },
         "textContent": "",
-        "user_id": "userId",
       }
     }
   />

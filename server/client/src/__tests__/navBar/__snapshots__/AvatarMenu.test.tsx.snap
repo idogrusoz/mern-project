@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarMenu test renders without crash 1`] = `
+<Fragment>
+  <WithStyles(ForwardRef(IconButton))
+    aria-controls="simple-menu"
+    aria-haspopup="true"
+    color="secondary"
+    onClick={[Function]}
+  >
+    <WithStyles(ForwardRef(Avatar)) />
+  </WithStyles(ForwardRef(IconButton))>
+  <WithStyles(ForwardRef(Menu))
+    anchorEl={null}
+    id="simple-menu"
+    keepMounted={true}
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(ForwardRef(MenuItem))
+      onClick={[Function]}
+    >
+      Profile
+    </WithStyles(ForwardRef(MenuItem))>
+    <WithStyles(ForwardRef(MenuItem))
+      onClick={[Function]}
+    >
+      AddPost
+    </WithStyles(ForwardRef(MenuItem))>
+    <WithStyles(ForwardRef(MenuItem))
+      onClick={[Function]}
+    >
+      SignOut
+    </WithStyles(ForwardRef(MenuItem))>
+  </WithStyles(ForwardRef(Menu))>
+</Fragment>
+`;

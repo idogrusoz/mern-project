@@ -1,14 +1,19 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import PostsContainer from "../components/PostsContainer";
+import PostsContainer from "../components/Profile/PostsContainer";
+import { IPostInterface } from "../../../interfaces/post.interfaces";
 
 describe("PostsContainer test", () => {
-    const posts = [
+    const posts: IPostInterface[] = [
         {
             likes: [],
             textContent: "",
-            user_id: "userId",
+            author: {
+                user_id: "userId",
+                image: "",
+                userName: "userName",
+            },
             style: {
                 fontFamily: "Roboto",
                 color: "#ffffff",

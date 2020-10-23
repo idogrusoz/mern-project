@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SingleSearchResult test renders without crash 1`] = `
+<WithStyles(ForwardRef(Grid))
+  alignItems="center"
+  className="makeStyles-result-1"
+  container={true}
+  onClick={[Function]}
+>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    xs={3}
+  >
+    <WithStyles(ForwardRef(Avatar))
+      onClick={[Function]}
+      src=""
+    />
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    xs={9}
+  >
+    <WithStyles(ForwardRef(Typography))
+      onClick={[Function]}
+    >
+      userName
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
+`;
