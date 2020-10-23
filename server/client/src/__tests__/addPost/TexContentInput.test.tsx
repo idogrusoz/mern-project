@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import TextContentInput from "../../components/addPost/TextContentInput";
+import TextContentInput from "../../components/AddPost/TextContentInput";
 
 describe("TextContentInput test", () => {
     const props = {

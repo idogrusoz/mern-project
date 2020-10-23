@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import TextAlignSelect from "../../components/addPost/TextAlignSelect";
+import TextAlignSelect from "../../components/AddPost/TextAlignSelect";
 
 describe("TextAlignSelect test", () => {
     const props = {

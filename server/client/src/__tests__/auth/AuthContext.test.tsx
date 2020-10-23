@@ -1,6 +1,6 @@
 jest.mock("../../api.ts");
 import React, { useContext } from "react";
-import { AuthContextProvider, AuthContext } from "../../components/auth/AuthContext";
+import { AuthContextProvider, AuthContext } from "../../components/Auth/AuthContext";
 import { ResponseUser } from "../../../../interfaces/user.interfaces";
 import { act } from "@testing-library/react";
 import ReactDOM from "react-dom";

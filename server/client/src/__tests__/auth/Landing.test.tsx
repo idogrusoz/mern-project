@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import toJson from "enzyme-to-json";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
-import Landing from "../../components/auth/Landing";
+import Landing from "../../components/Auth/Landing";
 
 describe("Landing component", () => {
     let wrapper: ReactWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>;

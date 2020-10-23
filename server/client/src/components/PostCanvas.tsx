@@ -42,7 +42,7 @@ const PostCanvas: FunctionComponent<PostCanvasType> = ({
             fontFamily,
             color,
             fontWeight,
-            fontSize: isBigScreen ? fontSize : fontSize * 0.66,
+            fontSize: isBigScreen ? fontSize : fontSize * 0.55,
             margin: "auto",
             textAlign,
         },

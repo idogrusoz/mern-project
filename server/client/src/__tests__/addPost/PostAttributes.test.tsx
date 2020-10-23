@@ -2,7 +2,7 @@ import { Button, Select, TextField } from "@material-ui/core";
 import toJson from "enzyme-to-json";
 import { mount } from "enzyme";
 import React from "react";
-import PostAttributes, { PostAttributesProps } from "../../components/addPost/PostAttributes";
+import PostAttributes, { PostAttributesProps } from "../../components/AddPost/PostAttributes";
 describe("Post attributes component test", () => {
     const props: PostAttributesProps = {
         textContent: "foo",

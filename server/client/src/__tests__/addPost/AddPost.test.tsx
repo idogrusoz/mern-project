@@ -3,9 +3,9 @@ import React from "react";
 import toJson from "enzyme-to-json";
 import { mount, shallow } from "enzyme";
 import api from "../../api";
-import AddPost from "../../components/addPost/AddPost";
+import AddPost from "../../components/AddPost/AddPost";
 import { Button } from "@material-ui/core";
-import { AuthContext, AuthContextObject, defaultContextValue } from "../../components/auth/AuthContext";
+import { AuthContext, AuthContextObject, defaultContextValue } from "../../components/Auth/AuthContext";
 import { MemoryRouter } from "react-router-dom";
 
 describe("AddPost test", () => {

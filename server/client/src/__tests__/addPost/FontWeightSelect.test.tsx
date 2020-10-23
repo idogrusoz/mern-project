@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import FontWeightSelect from "../../components/addPost/FontWeightSelect";
+import FontWeightSelect from "../../components/AddPost/FontWeightSelect";
 
 describe("FontWeightSelect test", () => {
     const props = {

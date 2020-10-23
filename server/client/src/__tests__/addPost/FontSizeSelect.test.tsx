@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import FontSizeSelect from "../../components/addPost/FontSizeSelect";
+import FontSizeSelect from "../../components/AddPost/FontSizeSelect";
 
 describe("FontSizeSelect test", () => {
     const props = {

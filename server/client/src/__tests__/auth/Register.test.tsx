@@ -2,7 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
 import React from "react";
-import Register, { RegisterProps } from "../../components/auth/Register";
+import Register, { RegisterProps } from "../../components/Auth/Register";
 
 describe("Register component", () => {
     const props: RegisterProps = {

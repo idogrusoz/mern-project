@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Route, RouteComponentProps, Router, Switch } from "react-router-dom";
-import AddPost from "./addPost/AddPost";
-import { AuthContext } from "./auth/AuthContext";
-import Landing from "./auth/Landing";
+import AddPost from "./AddPost/AddPost";
+import { AuthContext } from "./Auth/AuthContext";
+import Landing from "./Auth/Landing";
 import Profile from "./Profile";
 
 const Routes = ({ history, location }: RouteComponentProps<{}>) => {

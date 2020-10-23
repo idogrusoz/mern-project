@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
 import React from "react";
-import SignIn, { SignInProps } from "../../components/auth/SignIn";
+import SignIn, { SignInProps } from "../../components/Auth/SignIn";
 
 describe("SignIn component", () => {
     const props: SignInProps = {

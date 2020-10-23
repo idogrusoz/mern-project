@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IPostInterface } from "../../../interfaces/post.interfaces";
 import api from "../api";
-import { AuthContext } from "./auth/AuthContext";
+import { AuthContext } from "./Auth/AuthContext";
 import PostsContainer from "./PostsContainer";
 
 const useStyles = makeStyles({

@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import ColorSelect from "../../components/addPost/ColorSelect";
+import ColorSelect from "../../components/AddPost/ColorSelect";
 
 describe("ColorSelect test", () => {
     const props = {

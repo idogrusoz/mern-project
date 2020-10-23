@@ -3,7 +3,7 @@ import toJson from "enzyme-to-json";
 import { mount } from "enzyme";
 import Profile from "../components/Profile";
 import { MemoryRouter } from "react-router-dom";
-import { AuthContext, AuthContextObject, defaultContextValue } from "../components/auth/AuthContext";
+import { AuthContext, AuthContextObject, defaultContextValue } from "../components/Auth/AuthContext";
 
 describe("Profile test", () => {
     const value: AuthContextObject = {

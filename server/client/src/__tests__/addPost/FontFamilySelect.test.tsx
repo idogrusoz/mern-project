@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import FontFamilySelect from "../../components/addPost/FontFamilySelect";
+import FontFamilySelect from "../../components/AddPost/FontFamilySelect";
 
 describe("FontFamilySelect test", () => {
     const props = {
