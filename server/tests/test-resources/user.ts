@@ -6,7 +6,7 @@ export const mockUser: UserInterface = {
     email: `testUser@test.test`,
     password: "password",
     userName: "userName",
-    follwers: [],
+    followers: [],
     following: [],
 };
 
@@ -22,7 +22,7 @@ export const responseUser: ResponseUser = {
     lastName: "lastName",
     email: `testUser@test.test`,
     userName: "userName",
-    follwers: [],
+    followers: [],
     following: [],
 };
 
@@ -33,7 +33,7 @@ export const responseUser2: ResponseUser = {
     lastName: "lastName",
     email: `test2@test.test`,
     userName: "userName",
-    follwers: [],
+    followers: [],
     following: [],
 };
 
@@ -55,17 +55,17 @@ export const mockUsersArray: UserInterface[] = [
         email: `johndoe@test.test`,
         password: "password",
         userName: "noone",
-        follwers: [],
+        followers: [],
         following: [],
     },
     {
         displayName: "jane doe",
         firstName: "jane",
         lastName: "janeDoe",
-        email: `janedoe@test.test`,
+        email: "janedoe@test.test",
         password: "password",
         userName: "noonesWife",
-        follwers: [],
+        followers: [],
         following: [],
     },
     {
@@ -75,7 +75,7 @@ export const mockUsersArray: UserInterface[] = [
         email: `posta@test.test`,
         password: "password",
         userName: "lakap",
-        follwers: [],
+        followers: [],
         following: [],
     },
     {
@@ -85,7 +85,7 @@ export const mockUsersArray: UserInterface[] = [
         email: `postaci@test.test`,
         password: "password",
         userName: "nik",
-        follwers: [],
+        followers: [],
         following: [],
     },
     {
@@ -95,7 +95,7 @@ export const mockUsersArray: UserInterface[] = [
         email: `kestane@test.test`,
         password: "password",
         userName: "postane",
-        follwers: [],
+        followers: [],
         following: [],
     },
 ];

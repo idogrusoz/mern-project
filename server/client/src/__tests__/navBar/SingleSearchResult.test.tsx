@@ -10,6 +10,8 @@ describe("SingleSearchResult test", () => {
             displayName: "displayName",
             image: "",
             userName: "userName",
+            followers: [],
+            following: [],
         },
         pickUser: () => {},
     };

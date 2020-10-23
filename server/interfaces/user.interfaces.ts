@@ -4,7 +4,7 @@ export interface BaseUser {
     displayName: string;
     email: string;
     userName: string;
-    follwers?: string[];
+    followers?: string[];
     following?: string[];
     image?: string;
 }
@@ -27,4 +27,6 @@ export interface SearchedUser {
     userName: string;
     image: string;
     displayName: string;
+    followers?: string[];
+    following?: string[];
 }
