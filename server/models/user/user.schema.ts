@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
 import { Schema } from "mongoose";
-import { type } from "os";
 import { UserDocument } from "./user.types";
 
 const UserSchema = new Schema({
