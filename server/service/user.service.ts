@@ -37,11 +37,89 @@ const findBySearchTerm = async (term: string): Promise<UserDocument[]> => {
 
 const mapUsers = (users: UserDocument[]): SearchedUser[] => {
     return users.map((user: UserDocument) => {
-        return {
-            _id: user._id,
-            image: user.image || "",
-            userName: user.userName,
-            displayName: user.displayName,
-        };
+        return adaptUser(user);
     });
+};
+
+const adaptUser = (user: UserDocument): SearchedUser => {
+    return {
+        _id: user._id,
+        image: user.image || "",
+        userName: user.userName,
+        displayName: user.displayName,
+        followers: user.followers,
+        following: user.following,
+    };
+};
+
+export const followUser = async (
+    followerUser: string,
+    followedUser: string,
+): Promise<ServiceResponse<SearchedUser>> => {
+    try {
+        const followingUser = await addFollowing(followerUser, followedUser);
+        if (followingUser) {
+            const result = await addFollowers(followerUser, followedUser);
+            if (result) {
+                return buildServiceResponse(false, 200, "", adaptUser(result));
+            }
+        }
+        return buildServiceResponse(true, 400, "Bad request");
+    } catch (error) {
+        return buildServiceResponse(true, 400, error.message);
+    }
+};
+
+const addFollowing = async (followerUser: string, followedUser: string): Promise<UserDocument | null> => {
+    const result = await UserModel.findByIdAndUpdate(
+        { _id: followerUser },
+        { $addToSet: { following: followedUser } },
+        { new: true },
+    );
+    return result;
+};
+
+const addFollowers = async (followerUser: string, followedUser: string): Promise<UserDocument | null> => {
+    const result = await UserModel.findByIdAndUpdate(
+        { _id: followedUser },
+        { $addToSet: { followers: followerUser } },
+        { new: true },
+    );
+    return result;
+};
+
+export const unFollowUser = async (
+    followerUser: string,
+    followedUser: string,
+): Promise<ServiceResponse<SearchedUser>> => {
+    try {
+        const followingUser = await removeFollowing(followerUser, followedUser);
+        if (followingUser && followingUser.following?.indexOf(followedUser) === -1) {
+            const result = await removeFollowers(followerUser, followedUser);
+            if (result) {
+                return buildServiceResponse(false, 200, "", adaptUser(result));
+            }
+        }
+        return buildServiceResponse(true, 400, "Bad request");
+    } catch (error) {
+        return buildServiceResponse(true, 400, error.message);
+    }
+};
+
+const removeFollowing = async (followerUser: string, followedUser: string): Promise<UserDocument | null> => {
+    const result = await UserModel.findByIdAndUpdate(
+        { _id: followerUser },
+        { $pull: { following: followedUser } },
+        { new: true },
+    );
+    return result;
+};
+
+const removeFollowers = async (followerUser: string, followedUser: string): Promise<UserDocument | null> => {
+    const result = await UserModel.findByIdAndUpdate(
+        { _id: followedUser },
+        { $pull: { followers: followerUser } },
+        { new: true },
+    );
+    return result;
 };

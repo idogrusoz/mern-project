@@ -6,7 +6,7 @@ import { BaseUser, SearchedUser } from "../../interfaces/user.interfaces";
 import { ServiceResponse } from "../../utils/serviceResponse";
 import mongoose from "../../config/db";
 import { MONGO_URI } from "../jest.setup";
-import { isUserNameFree, search } from "../../service/user.service";
+import { followUser, isUserNameFree, search, unFollowUser } from "../../service/user.service";
 
 describe("Auth service tests", () => {
     let connection: typeof mongoose;
@@ -38,5 +38,17 @@ describe("Auth service tests", () => {
         }
         const response: ServiceResponse<SearchedUser[]> = await search("post");
         expect(response.data?.length).toBe(3);
+    });
+    it("creates follow relation", async () => {
+        const user1 = await UserModel.findOne({ email: "johndoe@test.test" });
+        const user2 = await UserModel.findOne({ email: "janedoe@test.test" });
+        const response: ServiceResponse<SearchedUser> = await followUser(user1?._id, user2?._id);
+        expect(response.data?.followers?.length).toBe(1);
+    });
+    it("destroys follow relation", async () => {
+        const user1 = await UserModel.findOne({ email: "johndoe@test.test" });
+        const user2 = await UserModel.findOne({ email: "janedoe@test.test" });
+        const response: ServiceResponse<SearchedUser> = await unFollowUser(user1?._id, user2?._id);
+        expect(response.data?.followers?.length).toBe(0);
     });
 });
