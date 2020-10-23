@@ -3,7 +3,7 @@ import { Route, RouteComponentProps, Router, Switch } from "react-router-dom";
 import AddPost from "./AddPost/AddPost";
 import { AuthContext } from "./Auth/AuthContext";
 import Landing from "./Auth/Landing";
-import Profile from "./Profile";
+import Profile from "./Profile/Profile";
 
 const Routes = ({ history, location }: RouteComponentProps<{}>) => {
     const [loading, setLoading] = useState<boolean>(true);

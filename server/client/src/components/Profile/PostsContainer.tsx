@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { IPostInterface } from "../../../interfaces/post.interfaces";
-import PostDisplay from "./PostDisplay";
+import { IPostInterface } from "../../../../interfaces/post.interfaces";
+import PostDisplay from "../PostDisplay";
 
 type PostContainerProps = {
     posts: IPostInterface[];
