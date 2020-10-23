@@ -5,6 +5,7 @@ import { SearchedUser } from "../../../../interfaces/user.interfaces";
 const useStyles = makeStyles({
     result: {
         marginTop: 10,
+        overflow: "hidden",
         "&:hover": {
             backgroundColor: "#ffffff",
             cursor: "pointer",

@@ -65,7 +65,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 cursor: "pointer",
             },
         },
-        resultContainer: { position: "absolute", width: "100%", backgroundColor: "rgba(255, 255, 255, 0.7)" },
+        resultContainer: {
+            position: "absolute",
+            width: "100%",
+            maxHeight: 200,
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            overflowY: "auto",
+        },
     }),
 );
 const NavBar = () => {
