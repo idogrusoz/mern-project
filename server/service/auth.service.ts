@@ -9,7 +9,7 @@ export const registerNewUser = async (user: UserInterface): Promise<ServiceRespo
     const getExistingUser = await findUser(user.email);
     try {
         if (getExistingUser === null) {
-            const image = await generateImage();
+            const image = await generateImage(user.firstName);
             if (image !== "") {
                 user.image = image;
             }
@@ -34,9 +34,10 @@ const findUser = async (email: string): Promise<UserDocument | null> => {
     return user;
 };
 
-const generateImage = async (): Promise<string> => {
+const generateImage = async (name: string): Promise<string> => {
+    const gender: "male" | "female" = name.charAt(name.length - 1) === ("a" || "e") ? "female" : "male";
     try {
-        const response = await axios("https://uifaces.co/api?limit=1", {
+        const response = await axios(`https://uifaces.co/api?limit=1&gender[]=${gender}`, {
             method: "GET",
             headers: {
                 "X-API-KEY": process.env.UI_FACES_API_KEY as string,
@@ -44,7 +45,6 @@ const generateImage = async (): Promise<string> => {
                 "Cache-Control": "no-cache",
             },
         });
-        console.log("response.data", response.data);
         return response.data[0].photo;
     } catch (error) {
         return "";
