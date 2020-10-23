@@ -12,14 +12,15 @@ const useStyles = makeStyles({
     },
 });
 
-type SingleSearchResultProps = {
+export type SingleSearchResultProps = {
     user: SearchedUser;
+    pickUser: (user: SearchedUser) => void;
 };
 
-const SingleSearchResult: FunctionComponent<SingleSearchResultProps> = ({ user }) => {
+const SingleSearchResult: FunctionComponent<SingleSearchResultProps> = ({ user, pickUser }) => {
     const classes = useStyles();
     return (
-        <Grid container alignItems="center" style={{ marginTop: 10 }} className={classes.result}>
+        <Grid container alignItems="center" onClick={() => pickUser(user)} className={classes.result}>
             <Grid item xs={3}>
                 <Avatar src={user.image} onClick={() => console.log(user._id)} />
             </Grid>

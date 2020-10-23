@@ -2,7 +2,7 @@ import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import React, { FunctionComponent, useContext } from "react";
 import { AuthContext } from "../Auth/AuthContext";
 
-type AvatarMenuProps = {
+export type AvatarMenuProps = {
     handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     anchorEl: HTMLElement | null;
     handleClose: () => void;

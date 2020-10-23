@@ -17,6 +17,7 @@ import { SearchedUser } from "../../../../interfaces/user.interfaces";
 import api from "../../api";
 import AvatarMenu from "./AvatarMenu";
 import SingleSearchResult from "./SingleSearchResult";
+import { ProfileContext } from "../Profile/ProfileContext";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         grow: {
@@ -73,17 +74,26 @@ const NavBar = () => {
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const { signOut, user } = useContext(AuthContext);
+    const { setProfileOwner } = useContext(ProfileContext);
     const history = useHistory();
     const classes = useStyles();
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
+    const pickUser = (user: SearchedUser) => {
+        setProfileOwner(user);
+        setDisplayResults(false);
+        history.push(`/username/${user.userName}`);
+    };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
 
     const goToProfile = () => {
         setAnchorEl(null);
+        setProfileOwner(null);
         history.push("/");
     };
 
@@ -139,8 +149,8 @@ const NavBar = () => {
                         />
                         {displayResults && (
                             <Paper className={classes.resultContainer} ref={resultsContainer}>
-                                {searchResults.map((user: SearchedUser) => {
-                                    return <SingleSearchResult user={user} />;
+                                {searchResults.map((user: SearchedUser, i: number) => {
+                                    return <SingleSearchResult user={user} pickUser={pickUser} key={i} />;
                                 })}
                             </Paper>
                         )}
