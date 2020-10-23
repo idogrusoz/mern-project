@@ -4,6 +4,8 @@ export interface BaseUser {
     displayName: string;
     email: string;
     userName: string;
+    follwers?: string[];
+    following?: string[];
     image?: string;
 }
 

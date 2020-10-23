@@ -37,7 +37,6 @@ describe("Auth service tests", () => {
             await UserModel.create(user);
         }
         const response: ServiceResponse<SearchedUser[]> = await search("post");
-        console.log("response.data", response.data);
         expect(response.data?.length).toBe(3);
     });
 });

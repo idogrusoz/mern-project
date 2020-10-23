@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
 import { Schema } from "mongoose";
+import { type } from "os";
 import { UserDocument } from "./user.types";
 
 const UserSchema = new Schema({
@@ -45,6 +46,9 @@ const UserSchema = new Schema({
         type: String,
         required: false,
     },
+
+    follwers: [{ type: String }],
+    following: [{ type: String }],
 });
 
 UserSchema.methods.generateAuthToken = function () {
@@ -86,6 +90,16 @@ UserSchema.statics.findByCredentials = function (email: string, password: string
             });
         });
     });
+};
+
+UserSchema.statics.searchUser = function (term: string) {
+    var User = this;
+    var searchKey = new RegExp(term, "i");
+    return User.find({
+        $or: [{ email: searchKey }, { displayName: searchKey }, { userName: searchKey }],
+    })
+        .then((result: UserDocument[]) => result)
+        .catch((err: any) => Promise.reject());
 };
 
 UserSchema.pre<UserDocument>("save", function (this: UserDocument, next) {

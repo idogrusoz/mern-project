@@ -31,10 +31,7 @@ export const search = async (term: string): Promise<ServiceResponse<SearchedUser
 };
 
 const findBySearchTerm = async (term: string): Promise<UserDocument[]> => {
-    var searchKey = new RegExp(term, "i");
-    const result = await UserModel.find({
-        $or: [{ email: searchKey }, { displayName: searchKey }, { userName: searchKey }],
-    });
+    const result = await UserModel.searchUser(term);
     return result;
 };
 
