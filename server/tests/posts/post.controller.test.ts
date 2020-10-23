@@ -1,7 +1,7 @@
 import { deletePost, findLikedPosts, updatePost } from "../../service/post.service";
+jest.mock("../../utils/tokenExtractor");
 jest.mock("../../service/auth.service");
 jest.mock("../../service/post.service");
-jest.mock("../../utils/tokenExtractor");
 import { mockPostWithId1, mockPostWithId2, mockPostWithId4, mockPostWithId5 } from "../test-resources/post";
 import { responseUser2 } from "../test-resources/user";
 import request from "supertest";
@@ -24,6 +24,7 @@ describe("Posts endpoints tests", () => {
     afterAll(async (done) => {
         await mongoose.disconnect();
         await server.close(done);
+        jest.clearAllMocks();
     });
 
     const auth = (id: "1" | "2") => {

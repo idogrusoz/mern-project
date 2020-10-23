@@ -1,10 +1,15 @@
 jest.mock("../../service/user.service");
+jest.mock("../../utils/tokenExtractor");
+jest.mock("../../service/auth.service");
 import request from "supertest";
 import { app, server } from "../../app";
 import mongoose from "../../config/db";
-import { SearchedUser } from "../../interfaces/user.interfaces";
-import { isUserNameFree, search } from "../../service/user.service";
+import { ResponseUser, SearchedUser } from "../../interfaces/user.interfaces";
+import { verifyToken } from "../../service/auth.service";
+import { followUser, isUserNameFree, search, unFollowUser } from "../../service/user.service";
 import buildServiceResponse, { ServiceResponse } from "../../utils/serviceResponse";
+import { tokenExtractor } from "../../utils/tokenExtractor";
+import { responseUser, responseUser2 } from "../test-resources/user";
 
 describe("Auth endpoints test", () => {
     const api = request(app);
@@ -15,7 +20,18 @@ describe("Auth endpoints test", () => {
     afterAll(async (done) => {
         await mongoose.disconnect();
         await server.close(done);
+        jest.clearAllMocks();
     });
+    const auth = (id: "1" | "2") => {
+        (tokenExtractor as jest.Mock).mockReturnValue("x");
+        const mockSuccessResponse: ServiceResponse<ResponseUser> = buildServiceResponse(
+            false,
+            200,
+            "",
+            id === "1" ? responseUser : responseUser2,
+        );
+        (verifyToken as jest.Mock).mockReturnValue(mockSuccessResponse);
+    };
     it("handles check username request", async () => {
         const mockSuccessResponse: ServiceResponse<boolean> = buildServiceResponse(false, 200, "", true);
         (isUserNameFree as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
@@ -25,11 +41,41 @@ describe("Auth endpoints test", () => {
     });
     it("handles search request", async () => {
         const mockSuccessResponse: ServiceResponse<SearchedUser[]> = buildServiceResponse(false, 200, "", [
-            { userName: "userName", _id: "userId", image: "img" },
+            { userName: "userName", _id: "userId", image: "img", displayName: "displayName" },
         ]);
         (search as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
         const res = await api.get("/api/v1/users/search/mocksearch");
         expect(search).toBeCalledWith("mocksearch");
+        expect(res.status).toEqual(200);
+    });
+    it("handles follow request", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<SearchedUser> = buildServiceResponse(false, 200, "", {
+            userName: "userName",
+            _id: "userId2",
+            image: "img",
+            displayName: "displayName",
+            followers: [],
+            following: [],
+        });
+        (followUser as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/users/userId2/follow");
+        expect(followUser).toBeCalledWith("userId", "userId2");
+        expect(res.status).toEqual(200);
+    });
+    it("handles unfollow request", async () => {
+        auth("1");
+        const mockSuccessResponse: ServiceResponse<SearchedUser> = buildServiceResponse(false, 200, "", {
+            userName: "userName",
+            _id: "userId2",
+            image: "img",
+            displayName: "displayName",
+            followers: [],
+            following: [],
+        });
+        (unFollowUser as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/users/userId2/unfollow");
+        expect(unFollowUser).toBeCalledWith("userId", "userId2");
         expect(res.status).toEqual(200);
     });
 });
