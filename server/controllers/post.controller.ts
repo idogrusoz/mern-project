@@ -79,7 +79,7 @@ export const likedPostsByUser = async (req: Request, res: Response): Promise<Res
 
 export const feed = async (req: Request, res: Response): Promise<Response> => {
     const userId: string = String(req.body.user._id);
-    if (userId !== req.params.id) {
+    if (userId !== req.params.userId) {
         return res.status(401).json({ message: "Unauthorized" });
     }
     try {

@@ -136,13 +136,13 @@ describe("Posts endpoints tests", () => {
         const data: BasePostDocument[] = [mockPostWithId1, mockPostWithId2];
         const mockSuccessResponse: ServiceResponse<BasePostDocument[]> = buildServiceResponse(false, 200, "", data);
         (userFeed as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
-        const res = await api.get("/api/v1/posts/user/userId/feed");
+        const res = await api.get("/api/v1/posts/userId/feed");
         expect(userFeed).toBeCalledWith("userId");
         expect(res.status).toBe(200);
     });
     it("returns error if userIds don't match", async () => {
         auth("1");
-        const res = await api.get("/api/v1/posts/user/userId2/feed");
+        const res = await api.get("/api/v1/posts/userId2/feed");
         expect(res.status).toBe(401);
     });
 });

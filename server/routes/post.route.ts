@@ -8,7 +8,7 @@ const posts: Router = Router();
 posts.route("/:id").get(verification, getOne);
 posts.route("/user/:id").get(verification, getByUser);
 posts.route("/likedbyuser/:id").get(verification, likedPostsByUser);
-posts.route("/user/:id/feed").get(verification, feed);
+posts.route("/:userId/feed").get(verification, feed);
 posts.route("/").post(verification, create);
 posts.route("/:id").put(verification, updateOne);
 posts.route("/:id").delete(verification, deleteOne);
