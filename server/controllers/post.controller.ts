@@ -9,7 +9,6 @@ import {
 } from "./../service/post.service";
 import { Request, Response } from "express";
 import { createPost } from "../service/post.service";
-import { PostDocument } from "../models/post/post.types";
 
 export const create = async (req: Request, res: Response): Promise<Response> => {
     const newPost = req.body;
