@@ -1,17 +1,10 @@
-import { userFeed } from "./../../service/post.service";
+import { handleDislike, handleLike, userFeed } from "./../../service/post.service";
 import { mockUpdatePost5 } from "../test-resources/post";
 import { PostDocument } from "../../models/post/post.types";
 import { assert } from "console";
 import mongoose from "../../config/db";
 import { PostModel } from "../../models/post/post.model";
-import {
-    createPost,
-    deletePost,
-    findLikedPosts,
-    getPostById,
-    getPostsByUserId,
-    updatePost,
-} from "../../service/post.service";
+import { createPost, deletePost, findLikedPosts, getPostById, getPostsByUserId } from "../../service/post.service";
 import { MONGO_URI } from "../jest.setup";
 import { mockPost1, mockPost2, mockPostWithId1, postsArray } from "../test-resources/post";
 import { mockUsersArray } from "../test-resources/user";
@@ -53,7 +46,6 @@ describe("Post model test", () => {
         assert(response.data as PostDocument);
     });
     it("handles wrong userId", async () => {
-        // const findByUser = jest.fn(() => Promise.reject(new Error()));
         const response = await getPostsByUserId("wrongId");
         expect(response.data?.length).toBe(0);
     });
@@ -61,12 +53,6 @@ describe("Post model test", () => {
         const response = await getPostsByUserId("userId");
         expect(response.data?.length).toBe(3);
         assert(response.data![0] as PostDocument);
-    });
-    it("updates and returns new data", async () => {
-        const mockUpdatePost = { ...mockUpdatePost5, _id: postIds[4] };
-        const response = await updatePost(mockUpdatePost);
-        expect(response.data?.createdAt).not.toEqual(response.data?.updatedAt);
-        expect(response.data?.textContent).toEqual("myUpdatedPost5");
     });
     it("finds post liked by a user", async () => {
         const response = await findLikedPosts("userId");
@@ -94,5 +80,15 @@ describe("Post model test", () => {
         const response2 = await userFeed(userIds[1]);
         expect(response1.data).toHaveLength(4);
         expect(response2.data).toHaveLength(2);
+    });
+    it("adds like for the post", async () => {
+        const response = await handleLike(postIds[1], userIds[1]);
+        expect(response.data).toBeTruthy();
+        expect(response.data?.likes.indexOf(userIds[1])).not.toBe(-1);
+    });
+    it("removes like from the post", async () => {
+        const response = await handleDislike(postIds[1], userIds[1]);
+        expect(response.data).toBeTruthy();
+        expect(response.data?.likes.indexOf(userIds[1])).toBe(-1);
     });
 });

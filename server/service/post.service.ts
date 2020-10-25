@@ -13,7 +13,6 @@ export const createPost = async (data: IPostInterface): Promise<ServiceResponse<
         console.log(`Post created with id:${post._id}`);
         return buildServiceResponse(false, 200, "", post);
     } catch (error) {
-        console.log("Error", error);
         return buildServiceResponse(true, 500, error.message);
     }
 };
@@ -55,21 +54,39 @@ const findByUser = async (user_id: string): Promise<Array<PostDocument>> => {
     return posts;
 };
 
-export const updatePost = async (data: BasePostDocument): Promise<ServiceResponse<BasePostDocument>> => {
+export const handleLike = async (postId: string, userId: string): Promise<ServiceResponse<BasePostDocument>> => {
     try {
-        const result = await findAndUpdate(data);
+        const result = await addLikeToPost(postId, userId);
         if (!result) {
             return buildServiceResponse(true, 422, "Couldn't update the post");
         }
-        console.log(`Post:${data._id} is updated`);
+        console.log(`User: ${userId} liked the Post: ${postId}`);
         return buildServiceResponse(false, 200, "", result);
     } catch (error) {
         return buildServiceResponse(true, 500, error.message);
     }
 };
 
-const findAndUpdate = async (data: BasePostDocument): Promise<PostDocument | null> => {
-    const result = await PostModel.findByIdAndUpdate(data._id, data, { new: true });
+const addLikeToPost = async (postId: string, userId: string): Promise<PostDocument | null> => {
+    const result = await PostModel.findByIdAndUpdate({ _id: postId }, { $addToSet: { likes: userId } }, { new: true });
+    return result;
+};
+
+export const handleDislike = async (postId: string, userId: string): Promise<ServiceResponse<BasePostDocument>> => {
+    try {
+        const result = await removeLikeFromPost(postId, userId);
+        if (!result) {
+            return buildServiceResponse(true, 422, "Couldn't update the post");
+        }
+        console.log(`User: ${userId} removed the like from the Post: ${postId}`);
+        return buildServiceResponse(false, 200, "", result);
+    } catch (error) {
+        return buildServiceResponse(true, 500, error.message);
+    }
+};
+
+const removeLikeFromPost = async (postId: string, userId: string): Promise<PostDocument | null> => {
+    const result = await PostModel.findByIdAndUpdate({ _id: postId }, { $pull: { likes: userId } }, { new: true });
     return result;
 };
 
@@ -119,5 +136,5 @@ export const userFeed = async (userId: string): Promise<ServiceResponse<BasePost
 };
 
 const getUserFeed = async (followed: string[]): Promise<PostDocument[]> => {
-    return await PostModel.find({ "author.user_id": { $in: followed } }).sort({ updatedAt: "desc" });
+    return await PostModel.find({ "author.user_id": { $in: followed } }).sort({ createdAt: "desc" });
 };

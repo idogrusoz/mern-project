@@ -1,4 +1,4 @@
-import { deletePost, findLikedPosts, updatePost, userFeed } from "../../service/post.service";
+import { deletePost, findLikedPosts, userFeed, handleDislike, handleLike } from "../../service/post.service";
 jest.mock("../../utils/tokenExtractor");
 jest.mock("../../service/auth.service");
 jest.mock("../../service/post.service");
@@ -86,27 +86,6 @@ describe("Posts endpoints tests", () => {
         expect(res.status).toBe(200);
         expect(res.body.data.length).toBe(2);
     });
-    it("doesn't update if id doesn't mactch", async () => {
-        auth("2");
-        const res = await api.put("/api/v1/posts/postId4").send(mockPostWithId5);
-        expect(res.status).toBe(400);
-    });
-    it("doesn't update without ownership", async () => {
-        auth("2");
-        const res = await api.put("/api/v1/posts/postId1").send(mockPostWithId1);
-        expect(res.status).toBe(401);
-    });
-    it("updates a post", async () => {
-        auth("1");
-        const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(false, 200, "", {
-            ...mockPostWithId2,
-            textContent: "myUpdatedPost",
-        });
-        (updatePost as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
-        const res = await api.put("/api/v1/posts/postId2").send(mockPostWithId2);
-        expect(res.status).toBe(200);
-        expect(res.body.data.textContent).toBe("myUpdatedPost");
-    });
     it("deletes a post", async () => {
         auth("1");
         const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
@@ -144,5 +123,21 @@ describe("Posts endpoints tests", () => {
         auth("1");
         const res = await api.get("/api/v1/posts/userId2/feed");
         expect(res.status).toBe(401);
+    });
+    it("handles like request", async () => {
+        auth("1");
+        const mockResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(false, 200, "", mockPostWithId1);
+        (handleLike as jest.Mock).mockReturnValue(mockResponse);
+        const res = await await api.put("/api/v1/posts/postId/like").send({ like: true });
+        expect(handleLike).toBeCalledWith("postId", "userId");
+        expect(res.status).toBe(200);
+    });
+    it("handles dislike request", async () => {
+        auth("1");
+        const mockResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(false, 200, "", mockPostWithId1);
+        (handleDislike as jest.Mock).mockReturnValue(mockResponse);
+        const res = await await api.put("/api/v1/posts/postId/like").send({ like: false });
+        expect(handleDislike).toBeCalledWith("postId", "userId");
+        expect(res.status).toBe(200);
     });
 });
