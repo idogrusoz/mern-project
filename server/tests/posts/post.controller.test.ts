@@ -1,4 +1,4 @@
-import { deletePost, findLikedPosts, updatePost } from "../../service/post.service";
+import { deletePost, findLikedPosts, updatePost, userFeed } from "../../service/post.service";
 jest.mock("../../utils/tokenExtractor");
 jest.mock("../../service/auth.service");
 jest.mock("../../service/post.service");
@@ -130,5 +130,19 @@ describe("Posts endpoints tests", () => {
         const res = await api.get("/api/v1/posts/likedbyuser/userId");
         expect(findLikedPosts).toBeCalledWith("userId");
         expect(res.status).toBe(200);
+    });
+    it("finds the feed of the user", async () => {
+        auth("1");
+        const data: BasePostDocument[] = [mockPostWithId1, mockPostWithId2];
+        const mockSuccessResponse: ServiceResponse<BasePostDocument[]> = buildServiceResponse(false, 200, "", data);
+        (userFeed as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
+        const res = await api.get("/api/v1/posts/user/userId/feed");
+        expect(userFeed).toBeCalledWith("userId");
+        expect(res.status).toBe(200);
+    });
+    it("returns error if userIds don't match", async () => {
+        auth("1");
+        const res = await api.get("/api/v1/posts/user/userId2/feed");
+        expect(res.status).toBe(401);
     });
 });

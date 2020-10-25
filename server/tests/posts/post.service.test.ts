@@ -1,5 +1,6 @@
-import { mockUpdatePost5 } from "./../test-resources/post";
-import { PostDocument } from "./../../models/post/post.types";
+import { userFeed } from "./../../service/post.service";
+import { mockUpdatePost5 } from "../test-resources/post";
+import { PostDocument } from "../../models/post/post.types";
 import { assert } from "console";
 import mongoose from "../../config/db";
 import { PostModel } from "../../models/post/post.model";
@@ -13,10 +14,14 @@ import {
 } from "../../service/post.service";
 import { MONGO_URI } from "../jest.setup";
 import { mockPost1, mockPost2, mockPostWithId1, postsArray } from "../test-resources/post";
+import { mockUsersArray } from "../test-resources/user";
+import { UserModel } from "../../models/user/user.model";
 
 describe("Post model test", () => {
     let connection: typeof mongoose;
     let postIds: string[] = [];
+    const userIds: string[] = [];
+
     beforeAll(async () => {
         connection = await mongoose.connect(MONGO_URI, {
             useNewUrlParser: true,
@@ -29,6 +34,7 @@ describe("Post model test", () => {
 
     afterAll(async () => {
         await PostModel.deleteMany({});
+        await UserModel.deleteMany({});
         await connection.disconnect();
     });
     it("handles error if post creation fails", async () => {
@@ -47,7 +53,7 @@ describe("Post model test", () => {
         assert(response.data as PostDocument);
     });
     it("handles wrong userId", async () => {
-        const findByUser = jest.fn(() => Promise.reject(new Error()));
+        // const findByUser = jest.fn(() => Promise.reject(new Error()));
         const response = await getPostsByUserId("wrongId");
         expect(response.data?.length).toBe(0);
     });
@@ -68,7 +74,6 @@ describe("Post model test", () => {
     });
     it("doesn't delete a post without ownership", async () => {
         const response = await deletePost(postIds[0], "userId2");
-        console.log("response", response);
         expect(response.statusCode).toEqual(404);
     });
     it("deletes a post by id", async () => {
@@ -78,5 +83,16 @@ describe("Post model test", () => {
     it("handles error if post is not found", async () => {
         const response = await getPostById(postIds[0]);
         expect(response.statusCode).toEqual(404);
+    });
+    it("finds the posts of the followed users", async () => {
+        for (let i = 0; i < 2; i++) {
+            await UserModel.create(mockUsersArray[i]);
+            const user = await UserModel.findOne({ email: mockUsersArray[i].email });
+            userIds.push(user?._id);
+        }
+        const response1 = await userFeed(userIds[0]);
+        const response2 = await userFeed(userIds[1]);
+        expect(response1.data).toHaveLength(4);
+        expect(response2.data).toHaveLength(2);
     });
 });

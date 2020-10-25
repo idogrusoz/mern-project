@@ -1,7 +1,15 @@
-import { deletePost, findLikedPosts, getPostById, getPostsByUserId, updatePost } from "./../service/post.service";
+import {
+    deletePost,
+    findLikedPosts,
+    getPostById,
+    getPostsByUserId,
+    updatePost,
+    userFeed,
+} from "./../service/post.service";
 import { Request, Response } from "express";
 import { createPost } from "../service/post.service";
 import { PostDocument } from "../models/post/post.types";
+import { ResponseUser } from "../interfaces/user.interfaces";
 
 export const create = async (req: Request, res: Response): Promise<Response> => {
     const newPost = req.body;
@@ -63,6 +71,19 @@ export const likedPostsByUser = async (req: Request, res: Response): Promise<Res
     const userId: string = req.params.id;
     try {
         const { error, message, statusCode, data } = await findLikedPosts(userId);
+        return res.status(statusCode).json({ error, message, data });
+    } catch (error) {
+        return res.status(500).json({ message: "An error occured :" + error.message });
+    }
+};
+
+export const feed = async (req: Request, res: Response): Promise<Response> => {
+    const userId: string = String(req.body.user._id);
+    if (userId !== req.params.id) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    try {
+        const { error, message, statusCode, data } = await userFeed(userId);
         return res.status(statusCode).json({ error, message, data });
     } catch (error) {
         return res.status(500).json({ message: "An error occured :" + error.message });

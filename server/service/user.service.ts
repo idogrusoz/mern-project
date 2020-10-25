@@ -123,3 +123,8 @@ const removeFollowers = async (followerUser: string, followedUser: string): Prom
     );
     return result;
 };
+
+export const findUserById = async (userId: string): Promise<UserDocument | null> => {
+    const user = await UserModel.findOne({ _id: userId });
+    return user;
+};

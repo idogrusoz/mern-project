@@ -56,7 +56,7 @@ export const mockUsersArray: UserInterface[] = [
         password: "password",
         userName: "noone",
         followers: [],
-        following: [],
+        following: ["userId", "userId2"],
     },
     {
         displayName: "jane doe",
@@ -66,7 +66,7 @@ export const mockUsersArray: UserInterface[] = [
         password: "password",
         userName: "noonesWife",
         followers: [],
-        following: [],
+        following: ["userId"],
     },
     {
         displayName: "ahmet",

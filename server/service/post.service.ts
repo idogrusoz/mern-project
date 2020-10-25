@@ -2,6 +2,7 @@ import { BasePostDocument, IPostInterface } from "../interfaces/post.interfaces"
 import { PostModel } from "../models/post/post.model";
 import { PostDocument } from "../models/post/post.types";
 import buildServiceResponse, { ServiceResponse } from "../utils/serviceResponse";
+import { findUserById } from "./user.service";
 
 export const createPost = async (data: IPostInterface): Promise<ServiceResponse<BasePostDocument>> => {
     try {
@@ -24,7 +25,7 @@ const addPost = async (post: IPostInterface): Promise<PostDocument | null> => {
 
 export const getPostById = async (postId: string): Promise<ServiceResponse<BasePostDocument>> => {
     try {
-        const post = await findById(postId);
+        const post = await findPostById(postId);
         if (!post) {
             return buildServiceResponse(true, 404, "An erroroccured");
         }
@@ -35,7 +36,7 @@ export const getPostById = async (postId: string): Promise<ServiceResponse<BaseP
     }
 };
 
-const findById = async (postId: string): Promise<PostDocument | null> => {
+const findPostById = async (postId: string): Promise<PostDocument | null> => {
     const post = await PostModel.findById(postId);
     return post;
 };
@@ -50,7 +51,7 @@ export const getPostsByUserId = async (user_id: string): Promise<ServiceResponse
 };
 
 const findByUser = async (user_id: string): Promise<Array<PostDocument>> => {
-    const posts = await PostModel.find({ "author.user_id": user_id });
+    const posts = await PostModel.find({ "author.user_id": user_id }).sort({ updatedAt: "desc" });
     return posts;
 };
 
@@ -102,4 +103,21 @@ export const findLikedPosts = async (userId: string): Promise<ServiceResponse<Ar
 const findByLikes = async (userId: string): Promise<Array<PostDocument>> => {
     const result = await PostModel.findByLikes(userId);
     return result;
+};
+
+export const userFeed = async (userId: string): Promise<ServiceResponse<BasePostDocument[]>> => {
+    try {
+        const user = await findUserById(userId);
+        if (user && user.following) {
+            const posts = await getUserFeed(user.following);
+            return buildServiceResponse(false, 200, "", posts);
+        }
+        return buildServiceResponse(true, 400, "No users followed");
+    } catch (error) {
+        return buildServiceResponse(true, 500, error.message);
+    }
+};
+
+const getUserFeed = async (followed: string[]): Promise<PostDocument[]> => {
+    return await PostModel.find({ "author.user_id": { $in: followed } }).sort({ updatedAt: "desc" });
 };
