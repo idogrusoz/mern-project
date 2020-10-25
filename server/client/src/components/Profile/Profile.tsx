@@ -1,7 +1,7 @@
 import { Container, Grid, IconButton, makeStyles } from "@material-ui/core";
 import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { IPostInterface } from "../../../../interfaces/post.interfaces";
 import api from "../../api";
 import { AuthContext } from "../Auth/AuthContext";
@@ -36,6 +36,7 @@ const Profile = () => {
         };
         fetchPosts();
     }, [profileOwner, user]);
+
     return (
         <Container maxWidth="md" className={classes.container}>
             <Grid container direction="column" justify="center" className={classes.grid}>

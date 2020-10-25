@@ -1125,11 +1125,11 @@ exports[`Profile test renders without crash 1`] = `
                             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <WithStyles(ForwardRef(Typography))
-                              className="makeStyles-item-4"
+                              className="makeStyles-item-5"
                               variant="h3"
                             >
                               <ForwardRef(Typography)
-                                className="makeStyles-item-4"
+                                className="makeStyles-item-5"
                                 classes={
                                   Object {
                                     "alignCenter": "MuiTypography-alignCenter",
@@ -1167,7 +1167,7 @@ exports[`Profile test renders without crash 1`] = `
                                 variant="h3"
                               >
                                 <h3
-                                  className="MuiTypography-root makeStyles-item-4 MuiTypography-h3"
+                                  className="MuiTypography-root makeStyles-item-5 MuiTypography-h3"
                                 >
                                   You
                                    don't have any posts yet
@@ -1178,12 +1178,12 @@ exports[`Profile test renders without crash 1`] = `
                         </ForwardRef(Grid)>
                       </WithStyles(ForwardRef(Grid))>
                       <WithStyles(ForwardRef(Grid))
-                        className="makeStyles-item-4"
+                        className="makeStyles-item-5"
                         item={true}
                         xs={12}
                       >
                         <ForwardRef(Grid)
-                          className="makeStyles-item-4"
+                          className="makeStyles-item-5"
                           classes={
                             Object {
                               "align-content-xs-center": "MuiGrid-align-content-xs-center",
@@ -1295,7 +1295,7 @@ exports[`Profile test renders without crash 1`] = `
                           xs={12}
                         >
                           <div
-                            className="MuiGrid-root makeStyles-item-4 MuiGrid-item MuiGrid-grid-xs-12"
+                            className="MuiGrid-root makeStyles-item-5 MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <WithStyles(ForwardRef(Button))
                               color="primary"
