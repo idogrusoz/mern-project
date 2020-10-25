@@ -1,5 +1,6 @@
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import React, { FunctionComponent, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { ProfileContext } from "./ProfileContext";
 
 const useStyles = makeStyles({
@@ -8,7 +9,11 @@ const useStyles = makeStyles({
 
 const EmptyProfile: FunctionComponent<{}> = () => {
     const { profileOwner } = useContext(ProfileContext);
+    const history = useHistory();
     const classes = useStyles();
+    const goToAddPost = () => {
+        history.push("/add-post");
+    };
     return (
         <>
             <Grid container justify="center" alignContent="center">
@@ -19,7 +24,7 @@ const EmptyProfile: FunctionComponent<{}> = () => {
                 </Grid>
                 {!profileOwner && (
                     <Grid item xs={12} className={classes.item}>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={goToAddPost}>
                             Add Post
                         </Button>
                     </Grid>
