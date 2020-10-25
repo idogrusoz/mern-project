@@ -1299,6 +1299,7 @@ exports[`Profile test renders without crash 1`] = `
                           >
                             <WithStyles(ForwardRef(Button))
                               color="primary"
+                              onClick={[Function]}
                               variant="contained"
                             >
                               <ForwardRef(Button)
@@ -1336,6 +1337,7 @@ exports[`Profile test renders without crash 1`] = `
                                   }
                                 }
                                 color="primary"
+                                onClick={[Function]}
                                 variant="contained"
                               >
                                 <WithStyles(ForwardRef(ButtonBase))
@@ -1344,6 +1346,7 @@ exports[`Profile test renders without crash 1`] = `
                                   disabled={false}
                                   focusRipple={true}
                                   focusVisibleClassName="Mui-focusVisible"
+                                  onClick={[Function]}
                                   type="button"
                                 >
                                   <ForwardRef(ButtonBase)
@@ -1359,12 +1362,14 @@ exports[`Profile test renders without crash 1`] = `
                                     disabled={false}
                                     focusRipple={true}
                                     focusVisibleClassName="Mui-focusVisible"
+                                    onClick={[Function]}
                                     type="button"
                                   >
                                     <button
                                       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
                                       disabled={false}
                                       onBlur={[Function]}
+                                      onClick={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
                                       onKeyDown={[Function]}
