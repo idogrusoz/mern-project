@@ -59,7 +59,7 @@ describe("Auth endpoints test", () => {
             following: [],
         });
         (followUser as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
-        const res = await api.get("/api/v1/users/userId2/follow");
+        const res = await api.put("/api/v1/users/userId2/follow");
         expect(followUser).toBeCalledWith("userId", "userId2");
         expect(res.status).toEqual(200);
     });
@@ -74,7 +74,7 @@ describe("Auth endpoints test", () => {
             following: [],
         });
         (unFollowUser as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
-        const res = await api.get("/api/v1/users/userId2/unfollow");
+        const res = await api.put("/api/v1/users/userId2/unfollow");
         expect(unFollowUser).toBeCalledWith("userId", "userId2");
         expect(res.status).toEqual(200);
     });

@@ -17,7 +17,7 @@ const ProfileOwner: FunctionComponent<{}> = () => {
 
     const handleFollow = async () => {
         try {
-            const response = await api.get(`users/${profileOwner?._id}/follow`);
+            const response = await api.put(`users/${profileOwner?._id}/follow`);
             if (response.data.error) {
                 throw new Error(response.data.message);
             }
@@ -29,7 +29,7 @@ const ProfileOwner: FunctionComponent<{}> = () => {
 
     const handleUnfollow = async () => {
         try {
-            const response = await api.get(`users/${profileOwner?._id}/unfollow`);
+            const response = await api.put(`users/${profileOwner?._id}/unfollow`);
             if (response.data.error) {
                 throw new Error(response.data.message);
             }
