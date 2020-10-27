@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from "react";
-import { IPostInterface } from "../../../../interfaces/post.interfaces";
+import { BasePostDocument } from "../../../../interfaces/post.interfaces";
 import PostDisplay from "../PostDisplay";
 
 type PostContainerProps = {
-    posts: IPostInterface[];
+    posts: BasePostDocument[];
+    fetch: () => Promise<void>;
 };
 
-const PostsContainer: FunctionComponent<PostContainerProps> = ({ posts }): JSX.Element => {
+const PostsContainer: FunctionComponent<PostContainerProps> = ({ posts, fetch }): JSX.Element => {
     return (
         <div>
-            {posts.map((post: IPostInterface, i: number) => {
-                return <PostDisplay post={post} key={i} />;
+            {posts.map((post: BasePostDocument, i: number) => {
+                return <PostDisplay post={post} fetch={fetch} />;
             })}
         </div>
     );
