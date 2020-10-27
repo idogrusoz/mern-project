@@ -38,10 +38,8 @@ const PostSchema = new Schema({
             type: String,
         },
     },
-    likes: {
-        type: "array",
-        items: { type: "string", uniqueItems: true },
-    },
+    likes: [{ type: String, uniqueItems: true }],
+
     createdAt: {
         type: Date,
     },
@@ -57,12 +55,14 @@ PostSchema.statics.findByLikes = function (userId: string) {
 
 PostSchema.pre<PostDocument>("save", function (this: PostDocument, next) {
     var post = this;
-    if (post.isModified()) {
+    if (!post.createdAt) {
+        post.createdAt = new Date();
+        return next();
+    }
+    if (!post.isModified("likes")) {
         post.updatedAt = new Date();
         return next();
     }
-    post.createdAt = new Date();
-    return next();
 });
 
 export default PostSchema;
