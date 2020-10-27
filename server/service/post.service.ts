@@ -118,7 +118,7 @@ export const findLikedPosts = async (userId: string): Promise<ServiceResponse<Ar
 };
 
 const findByLikes = async (userId: string): Promise<Array<PostDocument>> => {
-    const result = await PostModel.findByLikes(userId);
+    const result = await PostModel.find({ likes: userId }).sort({ createdAt: "desc" });
     return result;
 };
 
