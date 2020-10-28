@@ -128,3 +128,15 @@ export const findUserById = async (userId: string): Promise<UserDocument | null>
     const user = await UserModel.findOne({ _id: userId });
     return user;
 };
+
+export const findOneUser = async (id: string): Promise<ServiceResponse<SearchedUser>> => {
+    try {
+        const user = await findUserById(id);
+        if (user) {
+            return buildServiceResponse(false, 200, "", adaptUser(user));
+        }
+        return buildServiceResponse(true, 400, "Bad request");
+    } catch (error) {
+        return buildServiceResponse(true, 400, error.message);
+    }
+};

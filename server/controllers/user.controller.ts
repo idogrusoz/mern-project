@@ -1,4 +1,4 @@
-import { followUser, unFollowUser } from "./../service/user.service";
+import { findOneUser, followUser, unFollowUser } from "./../service/user.service";
 import { Request, Response } from "express";
 import { SearchedUser } from "../interfaces/user.interfaces";
 import { isUserNameFree, search } from "../service/user.service";
@@ -40,6 +40,16 @@ export const unFollow = async (req: Request, res: Response): Promise<Response> =
             req.body.user._id,
             req.params.id,
         );
+        return res.status(statusCode).json({ error, message, data });
+    } catch (error) {
+        return res.status(500).json({ message: "An error occured :" + error.message });
+    }
+};
+
+export const getProfile = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const id = req.params.id;
+        const { error, message, statusCode, data }: ServiceResponse<SearchedUser> = await findOneUser(id);
         return res.status(statusCode).json({ error, message, data });
     } catch (error) {
         return res.status(500).json({ message: "An error occured :" + error.message });

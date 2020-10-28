@@ -6,10 +6,13 @@ import { BaseUser, SearchedUser } from "../../interfaces/user.interfaces";
 import { ServiceResponse } from "../../utils/serviceResponse";
 import mongoose from "../../config/db";
 import { MONGO_URI } from "../jest.setup";
-import { followUser, isUserNameFree, search, unFollowUser } from "../../service/user.service";
+import { findOneUser, followUser, isUserNameFree, search, unFollowUser } from "../../service/user.service";
+import { UserDocument } from "../../models/user/user.types";
 
 describe("Auth service tests", () => {
     let connection: typeof mongoose;
+    let user1: UserDocument | null;
+    let user2: UserDocument | null;
     beforeAll(async () => {
         connection = await mongoose.connect(MONGO_URI, {
             useNewUrlParser: true,
@@ -40,15 +43,17 @@ describe("Auth service tests", () => {
         expect(response.data?.length).toBe(3);
     });
     it("creates follow relation", async () => {
-        const user1 = await UserModel.findOne({ email: "johndoe@test.test" });
-        const user2 = await UserModel.findOne({ email: "janedoe@test.test" });
+        user1 = await UserModel.findOne({ email: "johndoe@test.test" });
+        user2 = await UserModel.findOne({ email: "janedoe@test.test" });
         const response: ServiceResponse<SearchedUser> = await followUser(user1?._id, user2?._id);
         expect(response.data?.followers?.length).toBe(1);
     });
     it("destroys follow relation", async () => {
-        const user1 = await UserModel.findOne({ email: "johndoe@test.test" });
-        const user2 = await UserModel.findOne({ email: "janedoe@test.test" });
         const response: ServiceResponse<SearchedUser> = await unFollowUser(user1?._id, user2?._id);
         expect(response.data?.followers?.length).toBe(0);
+    });
+    it("finds single user", async () => {
+        const response: ServiceResponse<SearchedUser> = await findOneUser(user1?._id);
+        expect(response.data?.userName).toEqual(mockUsersArray[0].userName);
     });
 });
