@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Container, Grid, makeStyles } from "@material-ui/core";
+import { Button, Container, Grid, makeStyles } from "@material-ui/core";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { BasePostDocument } from "../../../../interfaces/post.interfaces";
 import api from "../../api";
