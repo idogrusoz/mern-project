@@ -23,10 +23,10 @@ const SingleSearchResult: FunctionComponent<SingleSearchResultProps> = ({ user, 
     return (
         <Grid container alignItems="center" onClick={() => pickUser(user)} className={classes.result}>
             <Grid item xs={3}>
-                <Avatar src={user.image} onClick={() => console.log(user._id)} />
+                <Avatar src={user.image} />
             </Grid>
             <Grid item xs={9}>
-                <Typography onClick={() => console.log(user._id)}>{user.userName}</Typography>
+                <Typography>{user.userName}</Typography>
             </Grid>
         </Grid>
     );

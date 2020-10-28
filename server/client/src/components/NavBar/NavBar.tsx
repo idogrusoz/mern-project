@@ -90,7 +90,7 @@ const NavBar = () => {
     const pickUser = (user: SearchedUser) => {
         setProfileOwner(user);
         setDisplayResults(false);
-        history.push(`/username/${user.userName}`);
+        history.push(`/profile/${user._id}`);
     };
 
     const handleClose = () => {

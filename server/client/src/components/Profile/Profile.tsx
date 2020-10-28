@@ -1,5 +1,6 @@
 import { Button, Container, Grid, makeStyles } from "@material-ui/core";
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { BasePostDocument } from "../../../../interfaces/post.interfaces";
 import api from "../../api";
 import { AuthContext } from "../Auth/AuthContext";
@@ -24,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
     const { user } = useContext(AuthContext);
-    const { profileOwner } = useContext(ProfileContext);
+    const { profileOwner, setProfileOwner } = useContext(ProfileContext);
     const [feed, setFeed] = useState<BasePostDocument[]>([]);
     const [posts, setPosts] = useState<BasePostDocument[]>([]);
     const [likes, setLikes] = useState<BasePostDocument[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [activeTab, setActiveTab] = useState<"feed" | "posts" | "likes">("feed");
     const classes = useStyles();
-
+    const location = useLocation();
     const fetchFeed = useCallback(async () => {
         setIsLoading(true);
         try {
@@ -70,11 +71,45 @@ const Profile = () => {
         }
     }, [profileOwner, user]);
 
+    const getProfileId = (path: string): string => {
+        let arr = path.split("/");
+        console.log("path", path);
+        const index = arr.indexOf("profile");
+        if (index !== -1) {
+            return arr[index + 1];
+        }
+        return "";
+    };
+
+    const getProfile = async (id: string): Promise<void> => {
+        try {
+            const response = await api.get(`/users/${id}`);
+            console.log("response", response);
+            setProfileOwner(response.data.data);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    const profileToRender = (id: string) => {
+        if (id === user?._id) {
+            setProfileOwner(null);
+        } else {
+            console.log("id", id);
+            getProfile(id);
+        }
+    };
+
     useEffect(() => {
+        let id: string = getProfileId(location.pathname);
+        if (id !== "" && id !== profileOwner?._id) {
+            console.log("id", id);
+            profileToRender(id);
+        }
         if (profileOwner) {
             setActiveTab("posts");
         }
-    }, [profileOwner]);
+    }, [profileOwner, location]);
 
     const postsToRender = (): BasePostDocument[] => {
         if (activeTab === "feed") {

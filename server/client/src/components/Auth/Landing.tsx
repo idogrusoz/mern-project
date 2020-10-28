@@ -1,5 +1,6 @@
 import { Container, Typography } from "@material-ui/core";
 import React, { useCallback, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { SignInUser, UserInterface } from "../../../../interfaces/user.interfaces";
 import api from "../../api";
 import { AuthContext } from "./AuthContext";
@@ -11,7 +12,7 @@ const Landing = () => {
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const { setAuthenticated, setUser } = useContext(AuthContext);
-
+    const history = useHistory();
     const register = useCallback(async (user: UserInterface) => {
         try {
             const response = await api.post("auth/register", user);
@@ -28,6 +29,7 @@ const Landing = () => {
                 const response = await api.post("auth/signin", user);
                 setAuthenticated(response.data.isAuthenticated);
                 setUser(response.data.user);
+                history.push("/");
             } catch (error) {
                 setError(true);
                 setErrorMessage(error.message);

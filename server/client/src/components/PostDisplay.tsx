@@ -7,6 +7,7 @@ import PostCanvas from "./PostCanvas";
 import { AuthContext } from "./Auth/AuthContext";
 import api from "../api";
 import { ProfileContext } from "./Profile/ProfileContext";
+import { useHistory } from "react-router-dom";
 
 type PostDisplayProps = {
     post: BasePostDocument;
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         color: theme.palette.secondary.dark,
     },
+    header: {
+        cursor: "pointer",
+    },
 }));
 
 const PostDisplay: FunctionComponent<PostDisplayProps> = ({ post, fetch }) => {
@@ -29,6 +33,7 @@ const PostDisplay: FunctionComponent<PostDisplayProps> = ({ post, fetch }) => {
     const { style, textContent, likes } = post;
     const { backgroundColor, color, fontFamily, fontSize, fontWeight, textAlign } = style;
     const [liked, setLiked] = useState<boolean | null>(null);
+    const history = useHistory();
     const handleLike = async () => {
         try {
             const response = await api.put(`/posts/${post._id}/like`, { like: !liked });
@@ -57,6 +62,8 @@ const PostDisplay: FunctionComponent<PostDisplayProps> = ({ post, fetch }) => {
                 subheader={
                     new Date(post.createdAt!).toDateString() + " " + new Date(post.createdAt!).toLocaleTimeString()
                 }
+                onClick={() => history.push(`${post.author.user_id}`)}
+                className={classes.header}
             />
             <CardContent>
                 <PostCanvas
