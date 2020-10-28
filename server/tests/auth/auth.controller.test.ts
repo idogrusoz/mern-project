@@ -37,6 +37,11 @@ describe("Auth endpoints test", () => {
         expect(res.status).toEqual(401);
         expect(JSON.parse(res.text).message).toEqual(mockSuccessResponse.message);
     });
+    it("handles error thrown by service on register", async () => {
+        (registerNewUser as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.post("/api/v1/auth/register").send(mockUser);
+        expect(res.status).toEqual(500);
+    });
     it("handles signin request", async () => {
         const mockSuccessResponse: ServiceResponse<BaseUser> = buildServiceResponse(false, 200, "", mockUser);
         (signInUser as jest.Mock).mockReturnValue(Promise.resolve(mockSuccessResponse));
@@ -55,6 +60,11 @@ describe("Auth endpoints test", () => {
         expect(res.status).toEqual(404);
         expect(JSON.parse(res.text).message).toEqual(mockSuccessResponse.message);
     });
+    it("handles error thrown by service on signin", async () => {
+        (signInUser as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.post("/api/v1/auth/signin").send(mockUser);
+        expect(res.status).toEqual(500);
+    });
     it("empty token can not pass middleware", async () => {
         const res = await api.get("/api/v1/auth/authenticate");
         expect(res.status).toEqual(401);
@@ -65,5 +75,20 @@ describe("Auth endpoints test", () => {
         (verifyToken as jest.Mock).mockReturnValue(mockSuccessResponse);
         const res = await api.get("/api/v1/auth/authenticate");
         expect(res.status).toEqual(200);
+    });
+    it("handles error during token verification", async () => {
+        (tokenExtractor as jest.Mock).mockReturnValue("x");
+        const mockSuccessResponse: ServiceResponse<ResponseUser> = buildServiceResponse(true, 500, "", responseUser);
+        (verifyToken as jest.Mock).mockReturnValue(mockSuccessResponse);
+        const res = await api.get("/api/v1/auth/authenticate");
+        expect(res.status).toEqual(500);
+    });
+    it("signs a user out", async () => {
+        (tokenExtractor as jest.Mock).mockReturnValue("x");
+        const mockSuccessResponse: ServiceResponse<ResponseUser> = buildServiceResponse(false, 200, "", responseUser);
+        (verifyToken as jest.Mock).mockReturnValue(mockSuccessResponse);
+        const res = await api.get("/api/v1/auth/signout");
+        expect(res.status).toEqual(200);
+        expect(res.body.isAuthenticted).not.toBeTruthy();
     });
 });

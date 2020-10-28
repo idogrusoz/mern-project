@@ -61,6 +61,12 @@ describe("Posts endpoints tests", () => {
         expect(res.status).toBe(200);
         expect(res.body.data).toEqual(mockPostWithId1);
     });
+    it("handles error thrown while post creatiob", async () => {
+        auth("1");
+        (createPost as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.post("/api/v1/posts").send(mockPostWithId1);
+        expect(res.status).toBe(500);
+    });
     it("finds post by id", async () => {
         auth("1");
         const mockSuccessResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(
@@ -74,6 +80,12 @@ describe("Posts endpoints tests", () => {
         expect(res.status).toBe(200);
         expect(res.body.data).toEqual(mockPostWithId2);
     });
+    it("handles error thwron while fnding a post by id", async () => {
+        auth("1");
+        (getPostById as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.get("/api/v1/posts/postdId2");
+        expect(res.status).toBe(500);
+    });
     it("finds all posts of a user", async () => {
         auth("1");
         const mockSuccessResponse: ServiceResponse<Array<BasePostDocument>> = buildServiceResponse(false, 200, "", [
@@ -85,6 +97,13 @@ describe("Posts endpoints tests", () => {
         expect(getPostsByUserId).toBeCalledWith("userId2");
         expect(res.status).toBe(200);
         expect(res.body.data.length).toBe(2);
+    });
+    it("handles error when finding posts of a user", async () => {
+        auth("1");
+        (getPostsByUserId as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.get("/api/v1/posts/user/userId2");
+        expect(getPostsByUserId).toBeCalledWith("userId2");
+        expect(res.status).toBe(500);
     });
     it("deletes a post", async () => {
         auth("1");
@@ -99,6 +118,12 @@ describe("Posts endpoints tests", () => {
         expect(res.status).toBe(200);
         expect(res.body.data.textContent).toBe("myPost2");
     });
+    it("handles error while deleting a post", async () => {
+        auth("1");
+        (deletePost as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.delete("/api/v1/posts/postId2");
+        expect(res.status).toBe(500);
+    });
     it("finds posts by user likes", async () => {
         auth("1");
         const mockSuccessResponse: ServiceResponse<Array<BasePostDocument>> = buildServiceResponse(false, 200, "", [
@@ -110,6 +135,13 @@ describe("Posts endpoints tests", () => {
         expect(findLikedPosts).toBeCalledWith("userId");
         expect(res.status).toBe(200);
     });
+    it("handles error thrown while finding posts by user likes", async () => {
+        auth("1");
+        (findLikedPosts as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.get("/api/v1/posts/likedbyuser/userId");
+        expect(findLikedPosts).toBeCalledWith("userId");
+        expect(res.status).toBe(500);
+    });
     it("finds the feed of the user", async () => {
         auth("1");
         const data: BasePostDocument[] = [mockPostWithId1, mockPostWithId2];
@@ -118,6 +150,14 @@ describe("Posts endpoints tests", () => {
         const res = await api.get("/api/v1/posts/userId/feed");
         expect(userFeed).toBeCalledWith("userId");
         expect(res.status).toBe(200);
+    });
+    it("handles the error thrown while getting the feed of the user", async () => {
+        auth("1");
+        const data: BasePostDocument[] = [mockPostWithId1, mockPostWithId2];
+        (userFeed as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.get("/api/v1/posts/userId/feed");
+        expect(userFeed).toBeCalledWith("userId");
+        expect(res.status).toBe(500);
     });
     it("returns error if userIds don't match", async () => {
         auth("1");
@@ -132,6 +172,13 @@ describe("Posts endpoints tests", () => {
         expect(handleLike).toBeCalledWith("postId", "userId");
         expect(res.status).toBe(200);
     });
+    it("handles error throw during like request", async () => {
+        auth("1");
+        (handleLike as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.put("/api/v1/posts/postId/like").send({ like: true });
+        expect(handleLike).toBeCalledWith("postId", "userId");
+        expect(res.status).toBe(500);
+    });
     it("handles dislike request", async () => {
         auth("1");
         const mockResponse: ServiceResponse<BasePostDocument> = buildServiceResponse(false, 200, "", mockPostWithId1);
@@ -139,5 +186,12 @@ describe("Posts endpoints tests", () => {
         const res = await await api.put("/api/v1/posts/postId/like").send({ like: false });
         expect(handleDislike).toBeCalledWith("postId", "userId");
         expect(res.status).toBe(200);
+    });
+    it("handles error throw during dislike request", async () => {
+        auth("1");
+        (handleDislike as jest.Mock).mockReturnValue(Promise.resolve(new Error()));
+        const res = await api.put("/api/v1/posts/postId/like").send({ like: false });
+        expect(handleDislike).toBeCalledWith("postId", "userId");
+        expect(res.status).toBe(500);
     });
 });

@@ -31,17 +31,9 @@ export const signIn = async (req: Request, res: Response, next: NextFunction): P
 };
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-    try {
-        return res.status(200).json({ isAuthenticated: true, user: req.body.user, token: req.body.token });
-    } catch (error) {
-        return res.status(500).json({ message: "An error occured :" + error.message });
-    }
+    return res.status(200).json({ isAuthenticated: true, user: req.body.user, token: req.body.token });
 };
 
 export const signOut = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
-    try {
-        return res.cookie("access_token", "", { expires: new Date() }).json({ isAuthenticated: false });
-    } catch (error) {
-        return res.status(500).json({ message: "An error occured :" + error.message });
-    }
+    return res.cookie("access_token", "", { expires: new Date() }).json({ isAuthenticated: false });
 };
