@@ -7,22 +7,39 @@ const useStyles = makeStyles({
     item: { textAlign: "center", marginTop: "30%" },
 });
 
-const EmptyProfile: FunctionComponent<{}> = () => {
+type EmptyProfileProps = {
+    activeTab: "feed" | "posts" | "likes";
+};
+
+const EmptyProfile: FunctionComponent<EmptyProfileProps> = ({ activeTab }) => {
     const { profileOwner } = useContext(ProfileContext);
     const history = useHistory();
     const classes = useStyles();
     const goToAddPost = () => {
         history.push("/add-post");
     };
+
+    const renderMessage = (): string => {
+        if (activeTab === "feed") {
+            return "You don't follow any users. Use search to find others and follow them so that you can see their posts on ypur feed.";
+        }
+        if (activeTab === "posts") {
+            return (profileOwner ? profileOwner.displayName + " doesn't " : "You don't ") + "have any posts yet.";
+        }
+        if (activeTab === "likes") {
+            return (profileOwner ? profileOwner.displayName + " hasn't" : "You haven't") + " liked any posts yet.";
+        }
+        return "";
+    };
     return (
         <>
             <Grid container justify="center" alignContent="center">
                 <Grid item xs={12}>
                     <Typography variant="h3" className={classes.item}>
-                        {profileOwner ? profileOwner.displayName : "You"} don't have any posts yet
+                        {renderMessage()}
                     </Typography>
                 </Grid>
-                {!profileOwner && (
+                {!profileOwner && activeTab === "posts" && (
                     <Grid item xs={12} className={classes.item}>
                         <Button variant="contained" color="primary" onClick={goToAddPost}>
                             Add Post
