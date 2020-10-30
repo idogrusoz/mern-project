@@ -1,10 +1,10 @@
 import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { BasePostDocument } from "../../../../interfaces/post.interfaces";
-import PostDisplay from "../PostDisplay";
-import EmptyProfile from "./EmptyProfile";
+import PostDisplay from "./PostDisplay";
+import EmptyProfile from "../Profile/EmptyProfile";
 
-type PostContainerProps = {
+export type PostContainerProps = {
     posts: BasePostDocument[];
     fetchLikedPosts: () => Promise<void>;
     fetchFeed: () => Promise<void>;

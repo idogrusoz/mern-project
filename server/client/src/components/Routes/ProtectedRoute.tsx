@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useContext, useState } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { AuthContext } from "./Auth/AuthContext";
+import { AuthContext } from "../Auth/AuthContext";
 
 type ProtectedRouteProps = {
     children: JSX.Element;

@@ -12,7 +12,6 @@ exports[`SingleSearchResult test renders without crash 1`] = `
     xs={3}
   >
     <WithStyles(ForwardRef(Avatar))
-      onClick={[Function]}
       src=""
     />
   </WithStyles(ForwardRef(Grid))>
@@ -20,9 +19,7 @@ exports[`SingleSearchResult test renders without crash 1`] = `
     item={true}
     xs={9}
   >
-    <WithStyles(ForwardRef(Typography))
-      onClick={[Function]}
-    >
+    <WithStyles(ForwardRef(Typography))>
       userName
     </WithStyles(ForwardRef(Typography))>
   </WithStyles(ForwardRef(Grid))>

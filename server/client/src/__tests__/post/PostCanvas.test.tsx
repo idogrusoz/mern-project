@@ -1,7 +1,7 @@
 import React from "react";
 import toJson from "enzyme-to-json";
 import { shallow } from "enzyme";
-import PostCanvas from "../components/PostCanvas";
+import PostCanvas from "../../components/Post/PostCanvas";
 
 describe("PostCanvas test", () => {
     const props = {

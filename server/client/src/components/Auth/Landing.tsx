@@ -12,7 +12,9 @@ const Landing = () => {
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const { setAuthenticated, setUser } = useContext(AuthContext);
+    const [userNameInput, setUserNameInput] = useState<string>("");
     const history = useHistory();
+
     const register = useCallback(async (user: UserInterface) => {
         try {
             const response = await api.post("auth/register", user);
@@ -26,6 +28,7 @@ const Landing = () => {
     const signin = useCallback(
         async (user: SignInUser) => {
             try {
+                console.log("object", user);
                 const response = await api.post("auth/signin", user);
                 setAuthenticated(response.data.isAuthenticated);
                 setUser(response.data.user);
@@ -44,7 +47,12 @@ const Landing = () => {
             {showSignin ? (
                 <SignIn signin={signin} setShowSignin={setShowSignin} />
             ) : (
-                <Register register={register} setShowSignin={setShowSignin} />
+                <Register
+                    register={register}
+                    setShowSignin={setShowSignin}
+                    userNameInput={userNameInput}
+                    setUserNameInput={setUserNameInput}
+                />
             )}
         </Container>
     );

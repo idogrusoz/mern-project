@@ -5,7 +5,7 @@ import "./App.css";
 import { AuthContextProvider } from "./components/Auth/AuthContext";
 import NavBar from "./components/NavBar/NavBar";
 import { ProfileContextProvider } from "./components/Profile/ProfileContext";
-import Routes from "./components/Routes";
+import Routes from "./components/Routes/Routes";
 import theme from "./theme";
 
 function App(props: RouteComponentProps<{}>) {

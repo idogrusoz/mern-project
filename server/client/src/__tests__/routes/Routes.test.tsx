@@ -1,9 +1,9 @@
 import React from "react";
 import { createMemoryHistory } from "history";
 import * as ReactRouterDom from "react-router-dom";
-import Routes from "../components/Routes";
 import { MemoryRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
+import Routes from "../../components/Routes/Routes";
 
 describe("Routes test", () => {
     it("renders without crash", () => {

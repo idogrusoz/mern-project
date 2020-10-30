@@ -33,14 +33,21 @@ exports[`AddPost test renders without crash 1`] = `
       addPost={[Function]}
       backgroundColor="#ffffff"
       color="#000000"
-      fontFamily="Roboto"
       fontSize={16}
       fontWeight={400}
+      fontWeightValues={
+        Array [
+          100,
+          400,
+          900,
+        ]
+      }
       setBackgroundColor={[Function]}
       setColor={[Function]}
       setFontFamily={[Function]}
       setFontSize={[Function]}
       setFontWeight={[Function]}
+      setFontWeightValues={[Function]}
       setTextAlign={[Function]}
       setTextContent={[Function]}
       textAlign="left"

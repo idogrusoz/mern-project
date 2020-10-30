@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { BasePostDocument } from "../../../../interfaces/post.interfaces";
 import api from "../../api";
 import { AuthContext } from "../Auth/AuthContext";
-import PostsContainer from "./PostsContainer";
+import PostsContainer from "../Post/PostsContainer";
 import { ProfileContext } from "./ProfileContext";
 import ProfileOwner from "./ProfileOwner";
 
@@ -73,7 +73,6 @@ const Profile = () => {
 
     const getProfileId = (path: string): string => {
         let arr = path.split("/");
-        console.log("path", path);
         const index = arr.indexOf("profile");
         if (index !== -1) {
             return arr[index + 1];

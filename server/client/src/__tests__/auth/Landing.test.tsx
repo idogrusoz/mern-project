@@ -3,6 +3,7 @@ import toJson from "enzyme-to-json";
 import { mount, ReactWrapper } from "enzyme";
 import React from "react";
 import Landing from "../../components/Auth/Landing";
+jest.mock("../../api.ts");
 
 describe("Landing component", () => {
     let wrapper: ReactWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>;

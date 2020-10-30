@@ -3,11 +3,21 @@ import toJson from "enzyme-to-json";
 import { mount } from "enzyme";
 import React from "react";
 import PostAttributes, { PostAttributesProps } from "../../components/AddPost/PostAttributes";
+import { MemoryRouter } from "react-router-dom";
+
+const mockGoBack = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useHistory: () => ({
+        goBack: mockGoBack,
+    }),
+}));
+
 describe("Post attributes component test", () => {
     const props: PostAttributesProps = {
         textContent: "foo",
         setTextContent: jest.fn((foo) => foo),
-        fontFamily: "string",
         setFontFamily: jest.fn(() => {}),
         color: "string",
         setColor: jest.fn(() => {}),
@@ -20,11 +30,14 @@ describe("Post attributes component test", () => {
         textAlign: "left",
         setTextAlign: jest.fn(() => {}),
         addPost: jest.fn(() => Promise.resolve()),
+        fontWeightValues: [400, 700, 900],
+        setFontWeightValues: jest.fn(),
     };
-    const wrapper = mount(<PostAttributes {...props} />);
-    it("renders without crash", () => {
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
+    const wrapper = mount(
+        <MemoryRouter>
+            <PostAttributes {...props} />
+        </MemoryRouter>,
+    );
     it("has two button", () => {
         expect(wrapper.find(Button)).toHaveLength(2);
         expect(wrapper.find(Button).at(0).text()).toEqual("Share");
@@ -37,5 +50,9 @@ describe("Post attributes component test", () => {
     });
     it("has four select fields", () => {
         expect(wrapper.find(Select)).toHaveLength(4);
+    });
+    it("goes to previous page when cancelled", () => {
+        wrapper.find(Button).at(1).simulate("click");
+        expect(mockGoBack).toHaveBeenCalled();
     });
 });

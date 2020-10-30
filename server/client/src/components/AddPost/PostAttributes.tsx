@@ -1,5 +1,5 @@
 import { Button, Grid, makeStyles, useMediaQuery } from "@material-ui/core";
-import React, { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
+import React, { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { useHistory } from "react-router-dom";
 import ColorSelect from "./ColorSelect";
 import FontFamilySelect from "./FontFamilySelect";
@@ -11,7 +11,6 @@ import TextContentInput from "./TextContentInput";
 export type PostAttributesProps = {
     textContent: string;
     setTextContent: Dispatch<SetStateAction<string>>;
-    fontFamily: string;
     setFontFamily: Dispatch<SetStateAction<string>>;
     color: string;
     setColor: Dispatch<SetStateAction<string>>;
@@ -24,12 +23,13 @@ export type PostAttributesProps = {
     textAlign: "left" | "right" | "justify" | "center";
     setTextAlign: Dispatch<SetStateAction<"left" | "right" | "justify" | "center">>;
     addPost: () => Promise<void>;
+    fontWeightValues: number[];
+    setFontWeightValues: Dispatch<SetStateAction<Array<number>>>;
 };
 
 const PostAttributes: FunctionComponent<PostAttributesProps> = ({
     textContent,
     setTextContent,
-    fontFamily,
     setFontFamily,
     color,
     setColor,
@@ -42,8 +42,9 @@ const PostAttributes: FunctionComponent<PostAttributesProps> = ({
     textAlign,
     setTextAlign,
     addPost,
+    fontWeightValues,
+    setFontWeightValues,
 }) => {
-    const [fontWeightValues, setFontWeightValues] = useState<Array<number>>([100, 400, 900]);
     const history = useHistory();
     const isBigScreen = useMediaQuery("(min-width: 650px)");
     const useStyles = makeStyles({

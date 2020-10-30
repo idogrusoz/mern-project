@@ -1,10 +1,10 @@
 import { CircularProgress } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect, Route, RouteComponentProps, Router, Switch } from "react-router-dom";
-import AddPost from "./AddPost/AddPost";
-import { AuthContext } from "./Auth/AuthContext";
-import Landing from "./Auth/Landing";
-import Profile from "./Profile/Profile";
+import AddPost from "../AddPost/AddPost";
+import { AuthContext } from "../Auth/AuthContext";
+import Landing from "../Auth/Landing";
+import Profile from "../Profile/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
 const Routes = ({ history }: RouteComponentProps<{}>) => {

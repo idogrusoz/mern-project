@@ -1,6 +1,6 @@
 import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
 import React, { useState, useContext } from "react";
-import PostCanvas from "../PostCanvas";
+import PostCanvas from "../Post/PostCanvas";
 import PostAttributes from "./PostAttributes";
 import { IPostInterface } from "../../../../interfaces/post.interfaces";
 import { AuthContext } from "../Auth/AuthContext";
@@ -17,6 +17,7 @@ const AddPost = () => {
     const [fontWeight, setFontWeight] = useState<number>(400);
     const [fontSize, setFontSize] = useState<number>(16);
     const [textAlign, setTextAlign] = useState<"left" | "right" | "justify" | "center">("left");
+    const [fontWeightValues, setFontWeightValues] = useState<Array<number>>([100, 400, 900]);
     const isBigScreen = useMediaQuery("(min-width: 650px)");
     const useStyles = makeStyles({
         container: {
@@ -66,7 +67,6 @@ const AddPost = () => {
                 <PostAttributes
                     backgroundColor={backgroundColor}
                     color={color}
-                    fontFamily={fontFamily}
                     fontSize={fontSize}
                     fontWeight={fontWeight}
                     setBackgroundColor={setBackgroundColor}
@@ -79,6 +79,8 @@ const AddPost = () => {
                     textAlign={textAlign}
                     textContent={textContent}
                     addPost={addPost}
+                    fontWeightValues={fontWeightValues}
+                    setFontWeightValues={setFontWeightValues}
                 />
             </Grid>
         </Grid>

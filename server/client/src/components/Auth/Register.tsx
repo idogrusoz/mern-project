@@ -8,6 +8,8 @@ import { UserInterface } from "../../../../interfaces/user.interfaces";
 export type RegisterProps = {
     register: (user: UserInterface) => void;
     setShowSignin: Dispatch<SetStateAction<boolean>>;
+    userNameInput: string;
+    setUserNameInput: Dispatch<SetStateAction<string>>;
 };
 
 const useStyles = makeStyles({
@@ -17,8 +19,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Register: FunctionComponent<RegisterProps> = ({ register, setShowSignin }) => {
-    const [userNameInput, setUserNameInput] = useState<string>("");
+const Register: FunctionComponent<RegisterProps> = ({ register, setShowSignin, userNameInput, setUserNameInput }) => {
     const classes = useStyles();
     const formik = useFormik({
         validateOnBlur: true,
