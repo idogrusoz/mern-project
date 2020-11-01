@@ -13,10 +13,14 @@ describe("SingleSearchResult test", () => {
             followers: [],
             following: [],
         },
-        pickUser: () => {},
+        pickUser: jest.fn((user) => user),
     };
     const wrapper = shallow(<SingleSearchResult {...props} />);
     it("renders without crash", () => {
         expect(toJson(wrapper)).toMatchSnapshot();
+    });
+    it("handles click", () => {
+        wrapper.simulate("click");
+        expect(props.pickUser).toBeCalledWith(props.user);
     });
 });

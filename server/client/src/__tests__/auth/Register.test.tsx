@@ -8,6 +8,8 @@ describe("Register component", () => {
     const props: RegisterProps = {
         register: jest.fn(() => {}),
         setShowSignin: jest.fn((foo) => foo),
+        userNameInput: "",
+        setUserNameInput: jest.fn(),
     };
     const wrapper = shallow(<Register {...props} />);
 
