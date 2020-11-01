@@ -44,7 +44,6 @@ const PostDisplay: FunctionComponent<PostDisplayProps> = ({ post, fetch }) => {
                 }
             }
         } catch (error) {
-            console.log("error", error);
             throw error;
         }
     };
