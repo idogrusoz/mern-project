@@ -27,6 +27,8 @@ const PORT = process.env.NODE_ENV === "development" ? process.env.PORT : process
 
 app.use("/", routes);
 
+app.use(express.static("client/build"));
+
 export const server: Server = app.listen(PORT, () =>
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`),
 );
