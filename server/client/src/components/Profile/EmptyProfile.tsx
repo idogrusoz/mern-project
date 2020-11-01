@@ -26,10 +26,7 @@ const EmptyProfile: FunctionComponent<EmptyProfileProps> = ({ activeTab }) => {
         if (activeTab === "posts") {
             return (profileOwner ? profileOwner.displayName + " doesn't " : "You don't ") + "have any posts yet.";
         }
-        if (activeTab === "likes") {
-            return (profileOwner ? profileOwner.displayName + " hasn't" : "You haven't") + " liked any posts yet.";
-        }
-        return "";
+        return (profileOwner ? profileOwner.displayName + " hasn't" : "You haven't") + " liked any posts yet.";
     };
     return (
         <>
