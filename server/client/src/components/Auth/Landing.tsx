@@ -38,7 +38,7 @@ const Landing = () => {
                 setErrorMessage(error.message);
             }
         },
-        [setAuthenticated, setUser],
+        [setAuthenticated, setUser, history],
     );
 
     return (

@@ -126,7 +126,7 @@ const Profile = () => {
             setActiveTab("posts");
         }
         updatePosts();
-    }, [profileOwner, location, activeTab, updatePosts, displayedId]);
+    }, [profileOwner, activeTab, updatePosts, displayedId, pathname, profileToRender]);
 
     return (
         <Container maxWidth="md" className={classes.container}>
