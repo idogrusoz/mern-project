@@ -1,10 +1,10 @@
 jest.mock("../../api.ts");
 import React, { useContext } from "react";
 import { AuthContextProvider, AuthContext } from "../../components/Auth/AuthContext";
-import { ResponseUser } from "../../../../interfaces/user.interfaces";
 import { act } from "@testing-library/react";
 import ReactDOM from "react-dom";
 import api from "../../api";
+import { mockUser } from "../../resources/testResources";
 
 describe("Auth context test", () => {
     let container: HTMLDivElement | null;
@@ -27,14 +27,6 @@ describe("Auth context test", () => {
         container = null;
     });
 
-    const mockUser: ResponseUser = {
-        _id: "userId",
-        firstName: "firstName",
-        lastName: "lastName",
-        displayName: "displayName",
-        userName: "userName",
-        email: "email",
-    };
     const TestComponent = () => {
         const { authenticated, user, setUser, signOut } = useContext(AuthContext);
         return (

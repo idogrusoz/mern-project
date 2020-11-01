@@ -1,10 +1,11 @@
 import React from "react";
 import toJson from "enzyme-to-json";
-import { mount, render, shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import PostsContainer, { PostContainerProps } from "../../components/Post/PostsContainer";
 import { MemoryRouter } from "react-router-dom";
-import { AuthContext, AuthContextObject, defaultContextValue } from "../../components/Auth/AuthContext";
+import { AuthContext } from "../../components/Auth/AuthContext";
 import EmptyProfile from "../../components/Profile/EmptyProfile";
+import { authWithUser } from "../../resources/testResources";
 const mockHistoryPush = jest.fn();
 
 jest.mock("react-router-dom", () => ({
@@ -42,21 +43,9 @@ describe("PostsContainer test", () => {
         ],
     };
 
-    const authValue: AuthContextObject = {
-        ...defaultContextValue,
-        user: {
-            _id: "userId",
-            firstName: "firstName",
-            lastName: "lastName",
-            displayName: "displayName",
-            userName: "userName",
-            email: "email",
-        },
-    };
-
     const mountComponent = (props: PostContainerProps) => {
         return mount(
-            <AuthContext.Provider value={authValue}>
+            <AuthContext.Provider value={authWithUser}>
                 <MemoryRouter>
                     <PostsContainer {...props} />
                 </MemoryRouter>

@@ -5,28 +5,13 @@ import { mount, shallow } from "enzyme";
 import api from "../../api";
 import AddPost from "../../components/AddPost/AddPost";
 import { Button } from "@material-ui/core";
-import { AuthContext, AuthContextObject, defaultContextValue } from "../../components/Auth/AuthContext";
+import { AuthContext } from "../../components/Auth/AuthContext";
 import { MemoryRouter } from "react-router-dom";
+import { authWithUser } from "../../resources/testResources";
 
 describe("AddPost test", () => {
-    const value: AuthContextObject = {
-        ...defaultContextValue,
-        user: {
-            _id: "userId",
-            firstName: "firstName",
-            lastName: "lastName",
-            displayName: "displayName",
-            userName: "userName",
-            email: "email",
-        },
-        // isAuthenticated: jest.fn(() => Promise.resolve()),
-        // authenticated: true,
-        // setAuthenticated: jest.fn(() => {}),
-        // setUser: jest.fn(() => {}),
-        // signOut: jest.fn(() => Promise.resolve()),
-    };
     const wrapper = mount(
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={authWithUser}>
             <MemoryRouter>
                 <AddPost />
             </MemoryRouter>

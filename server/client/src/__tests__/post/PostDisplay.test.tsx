@@ -1,14 +1,14 @@
 import React from "react";
 import { mount } from "enzyme";
 import PostDisplay, { PostDisplayProps } from "../../components/Post/PostDisplay";
-import { AuthContext, AuthContextObject, defaultContextValue } from "../../components/Auth/AuthContext";
+import { AuthContext } from "../../components/Auth/AuthContext";
 import { Avatar, CardHeader } from "@material-ui/core";
 import { MemoryRouter } from "react-router-dom";
-import { deafultContextValue, ProfileContext } from "../../components/Profile/ProfileContext";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import { defaultProfileContextValue, ProfileContext } from "../../components/Profile/ProfileContext";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import api from "../../api";
 import { act } from "@testing-library/react";
+import { authWithUser } from "../../resources/testResources";
 jest.mock("../../api.ts");
 
 const mockPut = jest.spyOn(api, "put");
@@ -44,21 +44,10 @@ describe("PostDisplay test", () => {
         },
         fetch: jest.fn(),
     };
-    const authValue: AuthContextObject = {
-        ...defaultContextValue,
-        user: {
-            _id: "userId",
-            firstName: "firstName",
-            lastName: "lastName",
-            displayName: "displayName",
-            userName: "userName",
-            email: "email",
-        },
-    };
 
     const wrapper = mount(
-        <AuthContext.Provider value={authValue}>
-            <ProfileContext.Provider value={deafultContextValue}>
+        <AuthContext.Provider value={authWithUser}>
+            <ProfileContext.Provider value={defaultProfileContextValue}>
                 <MemoryRouter>
                     <PostDisplay {...props} />
                 </MemoryRouter>
