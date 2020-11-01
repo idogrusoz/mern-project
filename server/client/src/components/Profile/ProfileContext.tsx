@@ -10,12 +10,12 @@ type Props = {
     children: ReactNode;
 };
 
-export const deafultContextValue: ProfileContextObject = {
+export const defaultProfileContextValue: ProfileContextObject = {
     profileOwner: null,
     setProfileOwner: () => {},
 };
 
-const ProfileContext = createContext<ProfileContextObject>(deafultContextValue);
+const ProfileContext = createContext<ProfileContextObject>(defaultProfileContextValue);
 
 const ProfileContextProvider: FunctionComponent<Props> = ({ children }) => {
     const [profileOwner, setProfileOwner] = useState<SearchedUser | null>(null);

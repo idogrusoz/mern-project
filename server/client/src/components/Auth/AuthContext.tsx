@@ -24,7 +24,7 @@ type Props = {
     children: ReactNode;
 };
 
-export const defaultContextValue: AuthContextObject = {
+export const defaultAuthContextValue: AuthContextObject = {
     isAuthenticated: () => new Promise(() => false),
     authenticated: false,
     setAuthenticated: () => {},
@@ -33,7 +33,7 @@ export const defaultContextValue: AuthContextObject = {
     signOut: () => new Promise(() => {}),
 };
 
-const AuthContext = createContext<AuthContextObject>(defaultContextValue);
+const AuthContext = createContext<AuthContextObject>(defaultAuthContextValue);
 
 const AuthContextProvider: FunctionComponent<Props> = ({ children }) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
