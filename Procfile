@@ -1,1 +1,1 @@
-FIXweb:yarn run start
+web:yarn run start
