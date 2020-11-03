@@ -3,11 +3,13 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { Server } from "http";
+import helmet from "helmet";
 import { connectDb } from "./config/db";
 import routes from "./routes";
 
 dotenv.config();
 export const app = express();
+app.use(helmet());
 connectDb();
 
 app.use(json());
