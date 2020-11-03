@@ -93,14 +93,16 @@ const Profile = () => {
             throw error;
         }
     };
-
-    const profileToRender = (id: string) => {
-        if (id === user?._id) {
-            setProfileOwner(null);
-        } else {
-            getProfile(id);
-        }
-    };
+    const profileToRender = useCallback(
+        (id: string) => {
+            if (id === user?._id) {
+                setProfileOwner(null);
+            } else {
+                getProfile(id);
+            }
+        },
+        [getProfile, setProfileOwner],
+    );
 
     const updatePosts = useCallback(() => {
         if (activeTab === "feed") {
@@ -122,7 +124,7 @@ const Profile = () => {
                 profileToRender(id);
             }
         }
-        if (profileOwner) {
+        if (profileOwner && activeTab !== "likes") {
             setActiveTab("posts");
         }
         updatePosts();
