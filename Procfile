@@ -1,1 +1,1 @@
-web: yarn run start
+FIXweb:yarn run start
