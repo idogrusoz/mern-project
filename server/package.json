@@ -40,7 +40,7 @@
         "morgan": "^1.10.0"
     },
     "scripts": {
-        "start": "NODE_ENV=production node dist/app.js",
+        "start": "NODE_ENV=production ts-node app.ts",
         "dev": "nodemon ./app.ts",
         "build": "tsc -p .",
         "test": "NODE_ENV=test jest --config ./jest.config.json --maxWorkers=1"
