@@ -10,8 +10,8 @@ routes.use("/api/v1/auth", auth);
 routes.use("/api/v1/posts", posts);
 routes.use("/api/v1/users", users);
 
-routes.use(function (req, res) {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+routes.use("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../client/build/"));
 });
 
 export default routes;

@@ -23,17 +23,18 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
 }
 
-const PORT = process.env.NODE_ENV === "development" ? process.env.PORT : process.env.TEST_PORT;
+const PORT = process.env.PORT;
+
+app.set("addPath", "client/build");
+app.use(express.static("client/build"));
 
 app.use("/", routes);
-
-app.use(express.static("client/build"));
 
 export const server: Server = app.listen(PORT, () =>
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`),
 );
 
 process.on("unhandledRejection", (err: Error, promise: Promise<any>) => {
-    console.log(`Error: ${err.message}`);
+    console.log(`Error: ${err}`);
     server.close(() => process.exit(1));
 });
