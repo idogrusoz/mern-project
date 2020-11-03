@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { Server } from "http";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
 import { connectDb } from "./config/db";
 import routes from "./routes";
 
@@ -22,6 +24,13 @@ app.use(
     }),
 );
 app.use(mongoSanitize());
+
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 1,
+});
+
+app.use(limiter);
 
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
