@@ -4,6 +4,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import { Server } from "http";
 import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 import { connectDb } from "./config/db";
 import routes from "./routes";
 
@@ -20,6 +21,7 @@ app.use(
         exposedHeaders: ["set-cookie"],
     }),
 );
+app.use(mongoSanitize());
 
 if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
