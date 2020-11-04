@@ -11,7 +11,7 @@ routes.use("/api/v1/posts", posts);
 routes.use("/api/v1/users", users);
 
 routes.use("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "../client/build/"));
+    res.sendFile(path.join(__dirname, "../client/"));
 });
 
 export default routes;

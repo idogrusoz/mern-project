@@ -47,6 +47,7 @@
     },
     "scripts": {
         "start": "NODE_ENV=production node dist/app.js",
+        "postinstall": "tsc",
         "dev": "nodemon ./app.ts",
         "build": "tsc -p .",
         "test": "NODE_ENV=test jest --config ./jest.config.json --maxWorkers=1",

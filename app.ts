@@ -12,7 +12,11 @@ import routes from "./routes";
 
 dotenv.config();
 export const app = express();
-app.use(helmet());
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+    }),
+);
 connectDb();
 
 app.use(json());
@@ -27,7 +31,7 @@ app.use(mongoSanitize());
 
 const limiter = rateLimit({
     windowMs: 10 * 60 * 1000,
-    max: 1,
+    max: 100,
 });
 
 app.use(limiter);
@@ -40,8 +44,8 @@ if (process.env.NODE_ENV === "development") {
 
 const PORT = process.env.PORT;
 
-app.set("addPath", "client/build");
-app.use(express.static("client/build"));
+app.set("addPath", "dist/client");
+app.use(express.static("dist/client"));
 
 app.use("/", routes);
 
