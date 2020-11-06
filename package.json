@@ -27,7 +27,6 @@
         "nodemon": "^2.0.5",
         "supertest": "^5.0.0",
         "ts-jest": "^26.4.1",
-        "ts-node": "^9.0.0",
         "typescript": "^4.0.3"
     },
     "dependencies": {
@@ -47,9 +46,14 @@
         "morgan": "^1.10.0"
     },
     "scripts": {
-        "start": "NODE_ENV=production ts-node app.ts",
+        "start": "NODE_ENV=production node dist/app.js",
+        "postinstall": "tsc",
         "dev": "nodemon ./app.ts",
         "build": "tsc -p .",
-        "test": "NODE_ENV=test jest --config ./jest.config.json --maxWorkers=1"
+        "test": "NODE_ENV=test jest --config ./jest.config.json --maxWorkers=1",
+        "heroku-postbuild": "cd client && yarn && yarn build"
+    },
+    "engines": {
+        "node": "10.19.0"
     }
 }

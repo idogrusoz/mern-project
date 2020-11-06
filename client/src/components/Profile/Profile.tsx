@@ -101,7 +101,7 @@ const Profile = () => {
                 getProfile(id);
             }
         },
-        [getProfile, setProfileOwner],
+        [getProfile, setProfileOwner, user],
     );
 
     const updatePosts = useCallback(() => {
