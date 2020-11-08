@@ -22,6 +22,8 @@
         "@types/mongoose": "^5.7.36",
         "@types/morgan": "^1.9.1",
         "@types/node": "^14.11.8",
+        "@types/swagger-jsdoc": "^3.0.2",
+        "@types/swagger-ui-express": "^4.1.2",
         "babel-jest": "^24.9.0",
         "jest": "^24.9.0",
         "nodemon": "^2.0.5",
@@ -43,7 +45,10 @@
         "hpp": "^0.2.3",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.10.9",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "swagger-jsdoc": "^5.0.0",
+        "swagger-ui-express": "^4.1.4",
+        "ts-node": "^9.0.0"
     },
     "scripts": {
         "start": "NODE_ENV=production node dist/app.js",
@@ -54,6 +59,6 @@
         "heroku-postbuild": "cd client && yarn && yarn build"
     },
     "engines": {
-        "node": "10.19.0"
+        "node": "14.15.0"
     }
 }

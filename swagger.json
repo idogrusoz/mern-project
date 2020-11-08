@@ -1,0 +1,1073 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Kerpich",
+        "description": "A social network where users can share some quotes in a styled way"
+    },
+    "servers": [
+        {
+            "url": "/api/v1/",
+            "description": "Local Dev, or from Heroku"
+        }
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": ["Auth Controller"],
+                "summary": "Creates a new user in the system",
+                "requestBody": {
+                    "description": "UserInterface",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserInterface"
+                            },
+                            "example": {
+                                "firstName": "John",
+                                "lastName": "Doe",
+                                "displayName": "John Doe",
+                                "email": "john@user.com",
+                                "userName": "nobody",
+                                "password": "mysecret"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/BaseUser"
+                                        },
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "user": {
+                                        "firstName": "John",
+                                        "lastName": "Doe",
+                                        "displayName": "John Doe",
+                                        "email": "john@user.com",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user"
+                                    },
+                                    "error": false,
+                                    "message": ""
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "409": {
+                        "description": "This email is already in use"
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "tags": ["Auth Controller"],
+                "summary": "Signs user in to use the app",
+                "requestBody": {
+                    "description": "UserData",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SigninUser"
+                            },
+                            "example": {
+                                "email": "john@user.com",
+                                "password": "mysecret"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "isAuthenticated": {
+                                            "type": "boolean"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/ResponseUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "isAuthenticated": true,
+                                    "token": "JWTwithuserdata",
+                                    "user": {
+                                        "_id": "UUID",
+                                        "firstName": "John",
+                                        "lastName": "Doe",
+                                        "displayName": "John Doe",
+                                        "email": "john@user.com",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Wrong password"
+                    },
+                    "404": {
+                        "description": "This user doesn't exit"
+                    }
+                }
+            }
+        },
+        "/auth/authenticate": {
+            "get": {
+                "tags": ["Auth Controller"],
+                "summary": "Verifies user token.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "isAuthenticated": {
+                                            "type": "boolean"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/ResponseUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "isAuthenticated": true,
+                                    "token": "JWTwithuserdata",
+                                    "user": {
+                                        "_id": "UUID",
+                                        "firstName": "John",
+                                        "lastName": "Doe",
+                                        "displayName": "John Doe",
+                                        "email": "john@user.com",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": { "description": "Unauthorized" }
+                }
+            }
+        },
+        "/auth/signout": {
+            "get": {
+                "tags": ["Auth Controller"],
+                "summary": "Signs user out and remloves token.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "isAuthenticated": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "isAuthenticated": false
+                                }
+                            }
+                        }
+                    },
+                    "401": { "description": "Unauthorized" }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": ["Users Controller"],
+                "summary": "Gets the profile of the user with the given id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SearchedUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "message": "",
+                                    "data": {
+                                        "_id": "UUID",
+                                        "displayName": "John Doe",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user",
+                                        "followers": ["someUserId"],
+                                        "following": ["someOtherUserId"]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "User doesn't exit"
+                    }
+                }
+            }
+        },
+        "/users/username": {
+            "post": {
+                "tags": ["Users Controller"],
+                "summary": "Checks if username is available",
+                "requestBody": {
+                    "description": "UserData",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "meesage": "",
+                                    "data": true
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unavailable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "meesage": "",
+                                    "data": false
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/users/search/{term}": {
+            "get": {
+                "tags": ["Users Controller"],
+                "summary": "Searches users for matching credentials with params",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SearchedUser"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "message": "",
+                                    "data": [
+                                        {
+                                            "_id": "UUID",
+                                            "displayName": "John Doe",
+                                            "userName": "nobody",
+                                            "image": "https://image.server.api/user",
+                                            "followers": ["someUserId"],
+                                            "following": ["someOtherUserId"]
+                                        },
+                                        {
+                                            "_id": "UUID",
+                                            "displayName": "Jane Doe",
+                                            "userName": "nobodyswife",
+                                            "image": "https://image.server.api/user2",
+                                            "followers": ["someUserId2"],
+                                            "following": ["someOtherUserId2"]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/users/{id}/follow": {
+            "put": {
+                "tags": ["Users Controller"],
+                "summary": "Creates a follow realtion between requesting user and params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SearchedUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "message": "",
+                                    "data": {
+                                        "_id": "UUID",
+                                        "displayName": "John Doe",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user",
+                                        "followers": ["someUserId"],
+                                        "following": ["someOtherUserId"]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SearchedUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": true,
+                                    "message": "Not found",
+                                    "data": "undefined"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/unfollow": {
+            "put": {
+                "tags": ["Users Controller"],
+                "summary": "Destroys the follow realtion between requesting user and params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SearchedUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": false,
+                                    "message": "",
+                                    "data": {
+                                        "_id": "UUID",
+                                        "displayName": "John Doe",
+                                        "userName": "nobody",
+                                        "image": "https://image.server.api/user",
+                                        "followers": ["someUserId"],
+                                        "following": ["someOtherUserId"]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SearchedUser"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error": true,
+                                    "message": "Not found",
+                                    "data": "undefined"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "post": {
+                "tags": ["Posts Controller"],
+                "summary": "Creates a new post",
+                "requestBody": {
+                    "description": "PostData",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "post": {
+                                        "$ref": "#/components/schemas/IPostInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+
+                    "422": {
+                        "description": "Failure",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "tags": ["Posts Controller"],
+                "summary": "Gets the single post with the id matcing the params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Posts Controller"],
+                "summary": "Deletes the post with id matching the params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/user/{id}": {
+            "get": {
+                "tags": ["Posts Controller"],
+                "summary": "Gets all the posts published by the user with params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BasePostDocument"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": { "description": "Unauthorized" }
+                }
+            }
+        },
+        "/posts/likedbyuser/{id}": {
+            "get": {
+                "tags": ["Posts Controller"],
+                "summary": "Gets all the posts liked by the user with params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BasePostDocument"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": { "description": "Unauthorized" }
+                }
+            }
+        },
+        "/posts/{userId}/feed": {
+            "get": {
+                "tags": ["Posts Controller"],
+                "summary": "Gets all the posts publisheds followed by the user with params id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BasePostDocument"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": { "description": "Unauthorized" }
+                }
+            }
+        },
+        "/posts/{id}/like": {
+            "put": {
+                "tags": ["Posts Controller"],
+                "summary": "Adds or removes like by the requesting user",
+                "requestBody": {
+                    "description": "PostLikeData",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "like": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Failure",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BasePostDocument"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BaseUser": {
+                "type": "object",
+                "properties": {
+                    "firtsName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserInterface": {
+                "type": "object",
+                "properties": {
+                    "firtsName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ResponseUser": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "firtsName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SigninUser": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SearchedUser": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "following": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "followers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "IPostInterface": {
+                "type": "object",
+                "properties": {
+                    "author": {
+                        "$ref": "#/components/schemas/PostAuthor"
+                    },
+                    "style": {
+                        "$ref": "#/components/schemas/PostStyle"
+                    },
+                    "likes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updateAt": {
+                        "type": "string"
+                    }
+                }
+            },
+            "BasePostDocument": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/PostAuthor"
+                    },
+                    "style": {
+                        "$ref": "#/components/schemas/PostStyle"
+                    },
+                    "likes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updateAt": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PostAuthor": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PostStyle": {
+                "type": "object",
+                "properties": {
+                    "fontFamily": { "type": "string" },
+                    "fontSize": { "type": "number" },
+                    "fontWeight": { "type": "number" },
+                    "backgroundColor": { "type": "string" },
+                    "textAlign": { "type": "string" },
+                    "color": { "type": "string" }
+                }
+            }
+        }
+    }
+}
