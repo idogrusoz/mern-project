@@ -85,14 +85,17 @@ const Profile = () => {
         return "";
     };
 
-    const getProfile = async (id: string): Promise<void> => {
-        try {
-            const response = await api.get(`/users/${id}`);
-            setProfileOwner(response.data.data);
-        } catch (error) {
-            throw error;
-        }
-    };
+    const getProfile = useCallback(
+        async (id: string): Promise<void> => {
+            try {
+                const response = await api.get(`/users/${id}`);
+                setProfileOwner(response.data.data);
+            } catch (error) {
+                throw error;
+            }
+        },
+        [setProfileOwner],
+    );
     const profileToRender = useCallback(
         (id: string) => {
             if (id === user?._id) {
