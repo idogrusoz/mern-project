@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const NavBar = () => {
     const [searchResults, setSearchResults] = useState<SearchedUser[]>([]);
     const [displayResults, setDisplayResults] = useState<boolean>(false);
+    const [searchInput, setSearchInput] = useState<string>("");
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const { signOut, user } = useContext(AuthContext);
@@ -90,6 +91,7 @@ const NavBar = () => {
     const pickUser = (user: SearchedUser) => {
         setProfileOwner(user);
         setDisplayResults(false);
+        setSearchInput("");
         history.push(`/profile/${user._id}`);
     };
 
@@ -115,6 +117,7 @@ const NavBar = () => {
     };
 
     const handleChange = async (e: { target: { value: string } }) => {
+        setSearchInput(e.target.value);
         try {
             const results = await api.get(`users/search/${e.target.value}`);
             setSearchResults(results.data.data);
@@ -127,6 +130,7 @@ const NavBar = () => {
     const pageClick = (e: any) => {
         if (resultsContainer.current && !resultsContainer.current!.contains(e.target)) {
             setDisplayResults(false);
+            setSearchInput("");
         }
     };
     useEffect(() => {
@@ -152,6 +156,7 @@ const NavBar = () => {
                             }}
                             inputProps={{ "aria-label": "search" }}
                             onChange={handleChange}
+                            value={searchInput}
                         />
                         {displayResults && (
                             <Paper className={classes.resultContainer} ref={resultsContainer}>
