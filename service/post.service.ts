@@ -26,7 +26,7 @@ export const getPostById = async (postId: string): Promise<ServiceResponse<BaseP
     try {
         const post = await findPostById(postId);
         if (!post) {
-            return buildServiceResponse(true, 404, "An erroroccured");
+            return buildServiceResponse(true, 404, "Not found");
         }
         return buildServiceResponse(false, 200, "", post);
     } catch (error) {

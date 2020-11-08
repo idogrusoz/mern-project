@@ -64,7 +64,7 @@ export const followUser = async (
                 return buildServiceResponse(false, 200, "", adaptUser(result));
             }
         }
-        return buildServiceResponse(true, 400, "Bad request");
+        return buildServiceResponse(true, 404, "Not found");
     } catch (error) {
         return buildServiceResponse(true, 400, error.message);
     }
@@ -100,9 +100,9 @@ export const unFollowUser = async (
                 return buildServiceResponse(false, 200, "", adaptUser(result));
             }
         }
-        return buildServiceResponse(true, 400, "Bad request");
+        return buildServiceResponse(true, 404, "Not found");
     } catch (error) {
-        return buildServiceResponse(true, 400, error.message);
+        return buildServiceResponse(true, 500, error.message);
     }
 };
 
@@ -135,8 +135,8 @@ export const findOneUser = async (id: string): Promise<ServiceResponse<SearchedU
         if (user) {
             return buildServiceResponse(false, 200, "", adaptUser(user));
         }
-        return buildServiceResponse(true, 400, "Bad request");
+        return buildServiceResponse(true, 404, "User doesn't exist");
     } catch (error) {
-        return buildServiceResponse(true, 400, error.message);
+        return buildServiceResponse(true, 400, "Bad request");
     }
 };
