@@ -1,3 +1,14 @@
 language: node_js
 node_js: 
   - 14
+install:
+  yarn
+script:
+  cd client && yarn
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Backend Tests"
+      script: yarn run test
+    - script: cd client && yarn test
+      name: "FrontEnd Tests"
