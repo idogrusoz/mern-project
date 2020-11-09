@@ -213,6 +213,7 @@ exports[`NavBar test renders without crash 1`] = `
                       }
                       onChange={[Function]}
                       placeholder="Search…"
+                      value=""
                     >
                       <ForwardRef(InputBase)
                         classes={
@@ -244,6 +245,7 @@ exports[`NavBar test renders without crash 1`] = `
                         }
                         onChange={[Function]}
                         placeholder="Search…"
+                        value=""
                       >
                         <div
                           className="MuiInputBase-root makeStyles-inputRoot-4"
@@ -258,6 +260,7 @@ exports[`NavBar test renders without crash 1`] = `
                             onFocus={[Function]}
                             placeholder="Search…"
                             type="text"
+                            value=""
                           />
                         </div>
                       </ForwardRef(InputBase)>
