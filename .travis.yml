@@ -2,7 +2,7 @@ language: node_js
 node_js: 
   - 14
 install:
-  yarn && cd client yarn
+  yarn && cd client && yarn
 jobs:
   include:
     - stage: "Tests"
