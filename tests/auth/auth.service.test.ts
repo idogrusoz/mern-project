@@ -43,7 +43,7 @@ describe("Auth service tests", () => {
     });
     it("returns error if password is wrong", async () => {
         const response: ServiceResponse<BaseUser> = await signInUser(userWithWrongPassword);
-        expect(response.statusCode).toEqual(404);
+        expect(response.statusCode).toEqual(401);
         expect(response.message).toEqual("Wrong password");
     });
     it("returns success if user is signedIn", async () => {
