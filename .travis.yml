@@ -6,7 +6,5 @@ install:
 jobs:
   include:
     - stage: "Tests"
-      name: "Backend Tests"
+      name: "Tests"
       script: yarn run test
-    - script: cd client && yarn test
-      name: "FrontEnd Tests"
