@@ -34,6 +34,7 @@ const Profile = () => {
     const [activeTab, setActiveTab] = useState<"feed" | "posts" | "likes">("feed");
     const [postsToRender, setPostsToRender] = useState<BasePostDocument[]>([]);
     const [displayedId, setDisplayedId] = useState<string | null>(null);
+    const [firstView, setFirstView] = useState<string>("");
     const classes = useStyles();
     const { pathname } = useLocation();
     const fetchFeed = useCallback(async () => {
@@ -127,11 +128,12 @@ const Profile = () => {
                 profileToRender(id);
             }
         }
-        if (profileOwner && activeTab !== "likes") {
+        if (profileOwner && firstView !== profileOwner._id) {
             setActiveTab("posts");
+            setFirstView(profileOwner._id);
         }
         updatePosts();
-    }, [profileOwner, activeTab, updatePosts, displayedId, pathname, profileToRender]);
+    }, [profileOwner, activeTab, updatePosts, displayedId, pathname, profileToRender, firstView]);
 
     return (
         <Container maxWidth="md" className={classes.container}>
