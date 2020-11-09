@@ -10,5 +10,5 @@ jobs:
     - stage: "Tests"
       name: "Backend Tests"
       script: yarn run test
-    - script: cd client && yarn test --watchAll
+    - script: cd client && yarn test
       name: "FrontEnd Tests"
