@@ -2,7 +2,7 @@
 
 # KERPICH (a MERN stack project)
 
-> A simple social network that allows users to share phrases in a styled way. phrases.
+> A simple social network that allows users to share phrases in a styled way.
 
 ## Table of contents
 
@@ -18,7 +18,7 @@
 
 ## General info
 
-Kerpich is a social netwotrk where users create posts by adding and styling phrases. Users an follow each other and like the posts of other users.
+Kerpich is a social netwotrk where users create posts by adding and styling phrases. Users an follow each other and like the posts of other users. App is hosted at [kerpich.com](http://www.kerpich.com/)
 
 ## Screenshots
 
