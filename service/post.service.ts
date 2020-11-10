@@ -50,7 +50,7 @@ export const getPostsByUserId = async (user_id: string): Promise<ServiceResponse
 };
 
 const findByUser = async (user_id: string): Promise<Array<PostDocument>> => {
-    const posts = await PostModel.find({ "author.user_id": user_id }).sort({ updatedAt: "desc" });
+    const posts = await PostModel.find({ "author.user_id": user_id }).sort({ createdAt: "desc" });
     return posts;
 };
 
